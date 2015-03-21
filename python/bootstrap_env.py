@@ -1,14 +1,48 @@
 #!/usr/bin/env python
+"""
+Bootstrap script to verify / prep python environments for projects.
+
+Works with `virtualenv`_, `virtualenvwrapper`_ and `pyenv-virtualenv`_.
+
+This script cannot place shell into a virtual environment. However, using a
+bash script, it can.
+"""
 
 from __future__ import absolute_import, division, print_function, \
     with_statement, unicode_literals
-
 
 import os
 import sys
 import subprocess
 import platform
 import argparse
+
+
+def strtobool(val):
+    """Convert a string representation of truth to true (1) or false (0).
+
+    True values are 'y', 'yes', 't', 'true', 'on', and '1'; false values
+    are 'n', 'no', 'f', 'false', 'off', and '0'.  Raises ValueError if
+    'val' is anything else.
+    """
+    val = val.lower()
+    if val in ('y', 'yes', 't', 'true', 'on', '1'):
+        return 1
+    elif val in ('n', 'no', 'f', 'false', 'off', '0'):
+        return 0
+    else:
+        raise ValueError("invalid truth value %r" % (val,))
+
+
+def prompt(query):
+    sys.stdout.write('%s [y/n]: ' % query)
+    val = raw_input()
+    try:
+        ret = strtobool(val)
+    except ValueError:
+        sys.stdout.write('Please answer with a y/n\n')
+        return prompt(query)
+    return ret
 
 
 def warning(*objs):
@@ -136,18 +170,55 @@ Accept command to run to install project (
 )
 """
 parser = argparse.ArgumentParser()
-parser.add_argument('-d', '--cwd', metavar='cwd', help='Current working directory. Defaults to shell $PWD.')
+parser.add_argument('-d',
+                    '--cwd',
+                    metavar='cwd',
+                    help='Current working directory. Defaults to shell $PWD.'
+                    )
+parser.add_argument(
+    '-x', '--container', metavar='container',
+    choices=['virtualenv', 'virtualenvwrapper', 'pyenv-virtualenv'],
+    help='virtualenv environment you are using. Will attempt to auto-detect'
+         ' based on your environment variables.'
+)
 parser.add_argument('-c', '--command',
                     metavar='command',
                     help='command to run after to bootstrapped env, useful for installing packages. uses cwd.',
                     required=False, default=None
                     )
+parser.add_argument('--get-project-config',
+                    dest='get_project_config',
+                    help='Internal argument to work-around shell limitations.'
+                         'Returns project config directory',
+                    action='store_true'
+                    )
 parser.add_argument('project', metavar='project', help='name of your project')
+
+import sys
+import os
+
+BOOTSTRAP_DIR = os.path.expanduser('~/.pybootstrap')
+if 'PYBOOTSTRAP_DIR' in os.environ and os.environ['PYBOOTSTRAP_DIR']:
+    BOOTSTRAP_DIR = os.environ['PYBOOTSTRAP_DIR']
+
+    if not os.path.isdir(BOOTSTRAP_DIR):
+        sys.exit("BOOTSTRAP_DIR %s is not a directory." % BOOTSTRAP_DIR)
+
+    if not os.access(BOOTSTRAP_DIR, os.W_OK):
+        sys.exit("BOOTSTRAP_DIR %s is not writable." % BOOTSTRAP_DIR)
+BOOTSTRAP_PROJECTS_DIR = os.path.join(BOOTSTRAP_DIR, 'projects')
 
 
 def main():
     args = parser.parse_args()
-    print(args)
+
+    if args.get_project_config:
+        project_name = args.project
+        project_dir = os.path.join(BOOTSTRAP_PROJECTS_DIR, project_name)
+        print(project_dir)
+        sys.exit()
+
+    prompt("Hi")
 
 
 class VirtualEnv(object):
@@ -165,11 +236,14 @@ class VirtualEnv(object):
         """Does virtualenv exist?"""
         pass
 
+
 def create_pyenv_virtualenv():
     pass
 
+
 def create_virtualenv():
     pass
+
 
 def create_virtualenvwrapper():
     pass
