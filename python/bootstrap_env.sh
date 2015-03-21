@@ -4,9 +4,8 @@
 
 set -e
 
-
-default_bootstrap_dir="$HOME/.pybootstrap"
-bootstrap_dir=${PYBOOTSTRAP_DIR:-$default_bootstrap_dir}
+# this step is needed because only shell can source into an environment.
+project_config_dir="$( python bootstrap_env.py $@ --get-project-config)"
 
 # if [ ! -z $PYBOOTSTRAP_DIR ]; then
 #     if [ ! -d $PYBOOTSTRAP_DIR ]; then
@@ -17,14 +16,7 @@ bootstrap_dir=${PYBOOTSTRAP_DIR:-$default_bootstrap_dir}
 #         exit 1
 #     fi
 # fi
-
-echo $bootstrap_dir
-#[[ -d $bootstrap_dir ]] || mkdir -p $bootstrap_dir
-
-
-project_config_dir="$( python bootstrap_env.py $@ --get-project-config)"
-echo "$project_config_dir"
-#$( python bootstrap_env.py $@ --get-project-config 2>> /dev/null)
+python bootstrap_env.py $@
 
 #echo "$retval"
 

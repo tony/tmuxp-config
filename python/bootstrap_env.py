@@ -13,9 +13,12 @@ from __future__ import absolute_import, division, print_function, \
 
 import os
 import sys
+import re
 import subprocess
 import platform
 import argparse
+
+from distutils.version import LooseVersion
 
 
 def strtobool(val):
@@ -170,32 +173,33 @@ Accept command to run to install project (
 )
 """
 parser = argparse.ArgumentParser()
-parser.add_argument('-d',
-                    '--cwd',
-                    metavar='cwd',
-                    help='Current working directory. Defaults to shell $PWD.'
-                    )
+parser.add_argument(
+    '-d',
+    '--cwd',
+    metavar='cwd',
+    help='Current working directory. Defaults to shell $PWD.'
+)
 parser.add_argument(
     '-x', '--container', metavar='container',
     choices=['virtualenv', 'virtualenvwrapper', 'pyenv-virtualenv'],
     help='virtualenv environment you are using. Will attempt to auto-detect'
          ' based on your environment variables.'
 )
-parser.add_argument('-c', '--command',
-                    metavar='command',
-                    help='command to run after to bootstrapped env, useful for installing packages. uses cwd.',
-                    required=False, default=None
-                    )
-parser.add_argument('--get-project-config',
-                    dest='get_project_config',
-                    help='Internal argument to work-around shell limitations.'
-                         'Returns project config directory',
-                    action='store_true'
-                    )
+parser.add_argument(
+    '-c', '--command',
+    metavar='command',
+    help='command to run after to bootstrapped env, useful for installing packages. uses cwd.',
+    required=False, default=None
+)
+# Internal argument to work-around shell limitations. Returns project config
+# directory
+parser.add_argument(
+    '--get-project-config',
+    dest='get_project_config',
+    help=argparse.SUPPRESS,
+    action='store_true'
+)
 parser.add_argument('project', metavar='project', help='name of your project')
-
-import sys
-import os
 
 BOOTSTRAP_DIR = os.path.expanduser('~/.pybootstrap')
 if 'PYBOOTSTRAP_DIR' in os.environ and os.environ['PYBOOTSTRAP_DIR']:
@@ -206,6 +210,7 @@ if 'PYBOOTSTRAP_DIR' in os.environ and os.environ['PYBOOTSTRAP_DIR']:
 
     if not os.access(BOOTSTRAP_DIR, os.W_OK):
         sys.exit("BOOTSTRAP_DIR %s is not writable." % BOOTSTRAP_DIR)
+
 BOOTSTRAP_PROJECTS_DIR = os.path.join(BOOTSTRAP_DIR, 'projects')
 
 
@@ -218,6 +223,8 @@ def main():
         print(project_dir)
         sys.exit()
 
+    g = Git()
+    print(g.version)
     prompt("Hi")
 
 
@@ -234,6 +241,71 @@ class VirtualEnv(object):
     @property
     def exists(self):
         """Does virtualenv exist?"""
+        pass
+
+    def download(self):
+        """Offer to download."""
+        pass
+
+
+def run(args, *pargs, **kwargs):
+    print(args)
+    return subprocess.check_output(args, *pargs, **kwargs)
+
+
+class Application(object):
+    """Get version of, path, installation info for applications."""
+    command = None
+    version_arg = None  # arg to run to get prog's version, e.g. -v
+
+    @property
+    def version(self):
+        if hasattr(self, '_parse_version'):
+            return self._parse_version(self._get_version())
+        return self._get_version()
+
+    @property
+    def bin_path(self):
+        return which(self.command)
+
+    def _get_version(self):
+        return run([self.bin_path, self.version_arg])
+
+    def _parse_version(self, version):
+        """
+        :param version: version returned from self.get_version
+        :type version: str
+        :rtype: :class:`distutils.version.LooseVersion`
+        :return: version of program
+        """
+        return LooseVersion(version)
+
+
+class Git(Application):
+    """
+    Version Control System
+    Homepage: http://git-scm.com/
+    """
+    command = 'git'
+    version_arg = '--version'
+
+    def _parse_version(self, version):
+        """Parse git version 2.1.4 -> 2.1.4"""
+        version = re.compile(
+            r'^git version (?P<version>[0-9.]+)$',
+        ).match(version).group('version')
+        return super(Git, self)._parse_version(version)
+
+
+class PyEnvVirtualEnv(VirtualEnv):
+    """
+    Homepage: https://github.com/yyuu/pyenv-virtualenv
+    License: MIT
+    Requirements: pyenv (https://github.com/yyuu/pyenv)
+    """
+
+    def download(self):
+        # determine if pyenv exists
         pass
 
 
