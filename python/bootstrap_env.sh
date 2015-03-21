@@ -4,6 +4,8 @@
 
 set -e
 
+# TODO: bootstrap bootstrap, check for pip, install pystrap
+
 # this step is needed because only shell can source into an environment.
 project_config_dir="$( python bootstrap_env.py $@ --get-project-config)"
 
