@@ -6,6 +6,58 @@ Works with `virtualenv`_, `virtualenvwrapper`_ and `pyenv-virtualenv`_.
 
 This script cannot place shell into a virtual environment. However, using a
 bash script, it can.
+
+Mission
+-------
+
+enhance bootstrap_env.py script to handle virtualenv, virtualenvwrapper
+and  pyenv-virtualenv.
+
+Problem:
+
+python script alone can't source into an environment.
+
+Solution:
+
+pipe the whole thing through a #!/bin/sh, let the python script return the
+activate script to source.
+
+Problem:
+
+can't keep interactive terminal while piping it into a variable
+
+Solution:
+
+Use a temporary file.
+
+Problem:
+
+Security, race conditions
+
+Solution:
+
+Have the shell script run a basic go-around (behind the scenes) to create and
+return a project directory, to save as a variable.
+
+The second pass through the bootstrap script, if a successful exit code is
+returned, can then source the project's virtualenv activation script.
+
+
+Benefits:
+
+- Leverage the full power of argparse (without worrying about getopt's
+  portability or getopts' lack of long command support.
+- Abstract out common patterns' needed to bootstrap a system / python project
+  under virtualenv / virtualenvwrapper / pyenv-virtualenv.
+- Use one command to drop into any one of the above environments. Since
+  PYBOOTSTRAP_DIR keeps a registry of projects' virtualenvs and directories.
+- Shell compatibility, clear passthru of arguments and uses standard POSIX
+  utilities on top of python scripting.
+- Can source you right into a virtualenv for any of the 3 projects
+- Can cd you into your project directory
+- EDITOR shortcuts to edit a JSON config, in should your project dir or
+  virtualenv change.
+
 """
 
 from __future__ import absolute_import, division, print_function, \
