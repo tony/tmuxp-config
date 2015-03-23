@@ -66,12 +66,23 @@ EOF
 }
 
 vflag=off
-while getopts vpmc: opt
+OPTIND=1
+while getopts "hvp:m:c:" opt
 do
     case "$opt" in
+      h)
+          _print_message
+          exit 0
+          ;;
       v)  vflag=on;;
       p)  project_name="$OPTARG";;
-      m)  manager="$OPTARG";;
+      m)  
+          manager="$OPTARG"
+          if [ "$manager" != "virtualenv" ] && [ "$manager" != "virtualenv" ] && [ "$manager" != "virtualenv" ]; then
+              echo "Incorrect manager, must specify virtualenv, virtualenvwrapper or pyenv-virtualenv"
+              exit 1
+          fi
+          ;;
       c)  install_command="$OPTARG";;
       \?)		# unknown flag
          _print_message 
@@ -81,9 +92,11 @@ done
 shift `expr $OPTIND - 1`
 
 #project_name2=${@:$OPTIND}
-project_name=$@
-echo $project_name
-echo $install_command
+#project_name=$@
+echo "all: $@"
+echo "project_name: $project_name"
+echo "install_command: $install_command"
+echo "manager: $manager"
 
 _detect_manager() {
     echo "hi"
@@ -97,7 +110,7 @@ fi
 
 # user queried project name, but no virtualenvwrapper, using  pyenv-virtualenv
 # if command -v pyenv > /dev/null 2>&1 && pyenv commands | grep -q "virtualenvwrapper"; then
-if [ -n "$manager" ] && [ "$manager" -eq "pyenv_virtualenv" ]; then
+if [ -n "$manager" ] && [ "$manager" = "pyenv_virtualenv" ]; then
 #if [ -n $manager && $manager -eq 'pyenv_virtualenv' ] || [ pyenv commands | grep -q "virtualenv$" ]; then
     if $(pyenv virtualenvs $project_name | grep -q $project_name); then
         echo "pyenv activate $project_name"
