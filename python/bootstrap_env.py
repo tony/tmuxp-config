@@ -69,8 +69,12 @@ import re
 import subprocess
 import platform
 import argparse
+import pprint
 
 from distutils.version import LooseVersion
+
+
+pp = pprint.PrettyPrinter(indent=4).pprint
 
 
 def strtobool(val):
@@ -321,7 +325,7 @@ def main():
 
     g = Git()
     print(g.version)
-    #prompt("Hi")
+    # prompt("Hi")
 
     v1 = VirtualEnv()
     v2 = PyEnvVirtualEnv()
@@ -332,7 +336,23 @@ def main():
         if any(_k in k for _k in ['VIRTUAL', 'PYENV', 'PYTHON'])
     }
 
-    print(PYTHON_ENV)
+    pp(PYTHON_ENV)
+
+    # 1.) Detect the user's installed tools
+    # virtualenv
+    # virtualenvwrapper
+    # pyenv
+    # pyenv-virtualenv
+    # pyenv-virtualenvwrapper
+
+
+def gather_environment_diagnostics():
+    PYTHON_ENV = {
+        k: v for k, v in os.environ.items()
+        if any(_k in k for _k in ['VIRTUAL', 'PYENV', 'PYTHON'])
+    }
+
+    return PYTHON_ENV
 
 
 class VirtualEnv(object):
