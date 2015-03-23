@@ -181,7 +181,11 @@ virtualenv_exists = os.path.exists(env_dir) and os.path.isfile(python_bin)
 vagrant_bin = which('vagrant', throw=False)
 vagrant_exists = vagrant_bin and os.path.exists(vagrant_bin)
 project_requirements_filepath = os.path.join(project_dir, 'requirements.txt')
-in_virtualenv = env_bin_dir in os.environ['PATH']
+
+
+@property
+def in_virtualenv():
+    return 'VIRTUAL_ENV' in os.environ['PATH']
 
 try:
     import virtualenv
@@ -192,7 +196,7 @@ except ImportError:
             'Install virtualenv via:\n'
             '\t$ [sudo] pip install virtualenv'
         )
-        fail(message)
+        # fail(message)
 
 
 try:
@@ -351,6 +355,11 @@ def gather_environment_diagnostics():
         k: v for k, v in os.environ.items()
         if any(_k in k for _k in ['VIRTUAL', 'PYENV', 'PYTHON'])
     }
+
+
+
+
+
 
     return PYTHON_ENV
 
