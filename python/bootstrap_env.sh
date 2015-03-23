@@ -16,6 +16,13 @@ then
     in_virtualenv="in_virtualenv"
 fi
 
+
+if command -v virtualenv
+then
+    has_virtualenv="has_virtualenv"
+fi
+
+
 if env | grep -q ^PYENV_VIRTUALENV_INIT=
 then
     has_pyenv_virtualenv="has_pyenv_virtualenv"
@@ -27,6 +34,28 @@ then
 fi
 
 if [ -n "$in_virtualenv" ]; then echo "in virtualenv"; fi
+
+# user outside of virtualenv without virtualenv installed.
+if [ ! -n "$in_virtualenv" ] && [ ! -n "$has_virtualenv" ]; then
+    cat <<EOF
+You must install virtualenv, see:
+https://virtualenv.pypa.io/en/latest/installation.html
+EOF
+    exit 1
+fi
+
+# user queried project name, but no virtualenvwrapper, using  pyenv-virtualenv
+#if command -v pyenv > /dev/null 2>&1 && pyenv commands | grep -q "virtualenvwrapper"; then
+#if [[ -n $manager ] && [ $manager == 'pyenv_virtualenv' ]] || [ pyenv grep -q
+#if $(pyenv virtualenvs $project_name | grep -q $project_name); then
+#    pyenv activate $project_name
+#else; then
+#    pyenv virtualenv $project_name
+#fi
+
+# user queried project name, but no virtualenvwrapper
+
+
 
 _print_message() {
     cat <<EOF
