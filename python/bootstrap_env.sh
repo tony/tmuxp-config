@@ -44,14 +44,7 @@ EOF
     exit 1
 fi
 
-# user queried project name, but no virtualenvwrapper, using  pyenv-virtualenv
-#if command -v pyenv > /dev/null 2>&1 && pyenv commands | grep -q "virtualenvwrapper"; then
-#if [[ -n $manager ] && [ $manager == 'pyenv_virtualenv' ]] || [ pyenv grep -q
-#if $(pyenv virtualenvs $project_name | grep -q $project_name); then
-#    pyenv activate $project_name
-#else; then
-#    pyenv virtualenv $project_name
-#fi
+
 
 # user queried project name, but no virtualenvwrapper
 
@@ -59,16 +52,26 @@ fi
 
 _print_message() {
     cat <<EOF
-usage: $0 [-v] [-c install_command] [project_name]
+usage: $0 [-v] [-m manager] [-c install_command] [project_name]
+
+        -m  (optional) virtualenv|pyenv-virtualenv|virtualenvwrapper
+            will do the best to autodetect your virtual environment manager.
+
+        -c  commands (if any) to install / prepare python environment
+            e.g. -c "python setup.py install", "pip install -e .",
+            "pip install -r requirements.txt"
+
+        project_name can be any valid directory name.
 EOF
 }
 
 vflag=off
-while getopts vpc: opt
+while getopts vpmc: opt
 do
     case "$opt" in
       v)  vflag=on;;
       p)  project_name="$OPTARG";;
+      m)  manager="$OPTARG";;
       c)  install_command="$OPTARG";;
       \?)		# unknown flag
          _print_message 
@@ -82,17 +85,25 @@ project_name=$@
 echo $project_name
 echo $install_command
 
-# if [ ! -z $PYBOOTSTRAP_DIR ]; then
-#     if [ ! -d $PYBOOTSTRAP_DIR ]; then
-#         echo "PYBOOTSTRAP_DIR ($PYBOOTSTRAP_DIR) is not a directory."
-#         exit 1
-#     elif [ ! -w $PYBOOTSTRAP_DIR ]; then
-#         echo "PYBOOTSTRAP_DIR ($PYBOOTSTRAP_DIR) is not writable."
-#         exit 1
-#     fi
-# fi
-#python bootstrap_env.py $@
+_detect_manager() {
+    echo "hi"
+}
 
-#echo "$retval"
+if [ -z "$manager" ]; then  # no manager found, let's autodetect
+    echo "manager: $manager"
+    echo "detecting manager"
+    _detect_manager
+fi
 
-
+# user queried project name, but no virtualenvwrapper, using  pyenv-virtualenv
+# if command -v pyenv > /dev/null 2>&1 && pyenv commands | grep -q "virtualenvwrapper"; then
+if [ -n "$manager" ] && [ "$manager" -eq "pyenv_virtualenv" ]; then
+#if [ -n $manager && $manager -eq 'pyenv_virtualenv' ] || [ pyenv commands | grep -q "virtualenv$" ]; then
+    if $(pyenv virtualenvs $project_name | grep -q $project_name); then
+        echo "pyenv activate $project_name"
+       #pyenv activate $project_name
+    else
+        echo "pyenv virtualenv $project_name"
+       #pyenv virtualenv $project_name
+    fi
+fi
