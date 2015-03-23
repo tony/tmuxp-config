@@ -266,45 +266,6 @@ if 'PYBOOTSTRAP_DIR' in os.environ and os.environ['PYBOOTSTRAP_DIR']:
 BOOTSTRAP_PROJECTS_DIR = os.path.join(BOOTSTRAP_DIR, 'projects')
 
 
-def main():
-    args = parser.parse_args()
-
-    if args.get_project_config:
-        project_name = args.project
-        project_dir = os.path.join(BOOTSTRAP_PROJECTS_DIR, project_name)
-        print(project_dir)
-        sys.exit()
-
-    g = Git()
-    print(g.version)
-    prompt("Hi")
-
-
-class VirtualEnv(object):
-    """The three virtualenv types have different creation commands."""
-
-    def create_env(self):
-        pass
-
-    @property
-    def paths(self):
-        pass
-
-    @property
-    def exists(self):
-        """Does virtualenv exist?"""
-        pass
-
-    def download(self):
-        """Offer to download."""
-        pass
-
-
-def run(args, *pargs, **kwargs):
-    print(args)
-    return subprocess.check_output(args, *pargs, **kwargs)
-
-
 class Application(object):
     """Get version of, path, installation info for applications."""
     command = None
@@ -349,6 +310,71 @@ class Git(Application):
         return super(Git, self)._parse_version(version)
 
 
+def main():
+    args = parser.parse_args()
+
+    if args.get_project_config:
+        project_name = args.project
+        project_dir = os.path.join(BOOTSTRAP_PROJECTS_DIR, project_name)
+        print(project_dir)
+        sys.exit()
+
+    g = Git()
+    print(g.version)
+    #prompt("Hi")
+
+    v1 = VirtualEnv()
+    v2 = PyEnvVirtualEnv()
+
+    #: Grab the python related variables from the environment
+    PYTHON_ENV = {
+        k: v for k, v in os.environ.items()
+        if any(_k in k for _k in ['VIRTUAL', 'PYENV', 'PYTHON'])
+    }
+
+    print(PYTHON_ENV)
+
+
+class VirtualEnv(object):
+    """The three virtualenv types have different creation commands."""
+
+    def create_env(self):
+        pass
+
+    @property
+    def paths(self):
+        pass
+
+    @property
+    def exists(self):
+        """Does virtualenv exist?"""
+        pass
+
+    def download(self):
+        """Offer to download."""
+        pass
+
+    def signature(self):
+        """
+
+        :rtype: bool
+        :returns: True if shell environment indicates environment found
+        """
+
+    def signature(self):
+        """Return True if environmental variables indicate env is sourced.
+
+        :rtype: bool
+        :returns: True if shell environment indicates environment found
+        """
+        pass
+
+
+def run(args, *pargs, **kwargs):
+    print(args)
+    return subprocess.check_output(args, *pargs, **kwargs)
+
+
 class PyEnvVirtualEnv(VirtualEnv):
     """
     Homepage: https://github.com/yyuu/pyenv-virtualenv
@@ -360,17 +386,13 @@ class PyEnvVirtualEnv(VirtualEnv):
         # determine if pyenv exists
         pass
 
+    def signature(self):
+        """
 
-def create_pyenv_virtualenv():
-    pass
-
-
-def create_virtualenv():
-    pass
-
-
-def create_virtualenvwrapper():
-    pass
+        :rtype: bool
+        :returns: True if shell environment indicates environment found
+        """
+        pass
 
 
 def oldmain():
