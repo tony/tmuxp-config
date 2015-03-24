@@ -107,7 +107,7 @@ _detect_manager() {
     if [ -n "$has_pyenv" ]; then # has pyenv
         if [ -n "$has_pyenv_virtualenv" ]; then # has virtualenv extension for pyenv
             if [ -n "$has_pyenv_virtualenvwrapper" ]; then  # confusing you? pyenv-virtualenvwrapper
-                echo "pyenv-virtualenvwrapper"
+                echo "virtualenvwrapper"
             else
                 echo "pyenv-virtualenv"
             fi
@@ -123,8 +123,15 @@ _detect_manager() {
     fi
 }
 
+
+_virtualenv_project() {
+    echo "variable is $1"
+}
+
+_virtualenv_project hihih
+
+
 if [ -z "$manager" ]; then  # no manager found, let's autodetect
-    echo "detecting manager"
     manager=$(_detect_manager)
     echo "detetected manager $manager"
 fi
