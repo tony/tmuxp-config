@@ -33,6 +33,8 @@ then
     in_virtualenv="in_virtualenv"
 fi
 
+if [ -n "$in_virtualenv" ]; then echo "in virtualenv"; exit 1; fi
+
 
 if command -v virtualenv > /dev/null 2>&1
 then
@@ -50,7 +52,7 @@ then
     has_pyenv_virtualenv="has_pyenv_virtualenv"
 fi
 
-if env | grep -q ^VIRTUALENVWRAPPER_VIRTUALENV=
+if env | grep -q ^VIRTUALENVWRAPPER_SCRIPT=
 then
     has_virtualenvwrapper="has_virtualenvwrapper"
 fi
@@ -134,13 +136,16 @@ usage: $0 [-v] [-m manager] [-c install_command] [project_name]
             e.g. -c "python setup.py install", "pip install -e .",
             "pip install -r requirements.txt"
 
+        -t  run but don't create / attempt to source any virtualenvs
+
         project_name can be any valid directory name.
 EOF
 }
 
 vflag=off
+source=on
 OPTIND=1
-while getopts "hvp:m:c:" opt
+while getopts "hvtp:m:c:" opt
 do
     case "$opt" in
       h)
@@ -148,6 +153,7 @@ do
           exit 0
           ;;
       v)  vflag=on;;
+      t)  source=off;;
       m)  
           manager="$OPTARG"
           if  [ "$manager" != "virtualenv" ] && 
@@ -188,10 +194,11 @@ if [ -z "$manager" ]; then  # no manager found, let's autodetect
     echo "detected manager $manager"
 fi
 
-if [ -n "$in_virtualenv" ]; then echo "in virtualenv"; fi
+if [ "$source" = "off" ]; then
+    exit 0
+fi
 
-# user queried project name, but no virtualenvwrapper
-# user queried project name, but no virtualenvwrapper, using  pyenv-virtualenv
+
 if [ "$manager" = "pyenv-virtualenv" ]; then
     _pyenv_virtualenv_project
 elif [ "$manager" = "virtualenvwrapper" ]; then
