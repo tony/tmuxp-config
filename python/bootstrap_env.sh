@@ -80,7 +80,6 @@ do
           exit 0
           ;;
       v)  vflag=on;;
-      p)  project_name="$OPTARG";;
       m)  
           manager="$OPTARG"
           if [ "$manager" != "virtualenv" ] && [ "$manager" != "virtualenv" ] && [ "$manager" != "virtualenv" ]; then
@@ -96,12 +95,19 @@ do
 done
 shift `expr $OPTIND - 1`
 
-#project_name2=${@:$OPTIND}
-#project_name=$@
-echo "all: $@"
-echo "project_name: $project_name"
-echo "install_command: $install_command"
-echo "manager: $manager"
+project_name=$@
+
+if [ "$vflag" = "on" ]; then
+    echo "project_name: $project_name"
+    echo "install_command: $install_command"
+    echo "manager: $manager"
+fi
+
+if [ -z "$project_name" ]; then
+    echo "Please enter at least a project_name."
+    _print_message
+    exit 1
+fi
 
 _detect_manager() {
     if [ -n "$has_pyenv" ]; then # has pyenv
@@ -125,11 +131,34 @@ _detect_manager() {
 
 
 _virtualenv_project() {
-    echo "variable is $1"
+    if [ -d "$HOME/.virtualenvs/$project_name" ]; then
+        echo "environment found"
+    else
+        "no environment"
+        virtualenv "$HOME/.virtualenvs/$project_name"
+        . "$HOME/.virtualenvs/$project_name/bin/activate"
+    fi
 }
 
-_virtualenv_project hihih
 
+_virtualenvwrapper_project() {
+    if $(lsvirtualenv | grep -q "^$project_name"); then
+        workon $project_name
+    else
+        mkvirtualenv $project_name
+        workon $project_name
+    fi
+}
+
+_pyenv_virtualenv() {
+    if $(pyenv virtualenvs $project_name | grep -q "$project_name"); then
+        echo "pyenv activate $project_name"
+       #pyenv activate $project_name
+    else
+        echo "pyenv virtualenv $project_name"
+       #pyenv virtualenv $project_name
+    fi
+}
 
 if [ -z "$manager" ]; then  # no manager found, let's autodetect
     manager=$(_detect_manager)
@@ -137,16 +166,9 @@ if [ -z "$manager" ]; then  # no manager found, let's autodetect
 fi
 
 # user queried project name, but no virtualenvwrapper, using  pyenv-virtualenv
-# if command -v pyenv > /dev/null 2>&1 && pyenv commands | grep -q "virtualenvwrapper"; then
 if [ -n "$manager" ] && [ "$manager" = "pyenv-virtualenv" ]; then
-#if [ -n $manager && $manager -eq 'pyenv_virtualenv' ] || [ pyenv commands | grep -q "virtualenv$" ]; then
-    if $(pyenv virtualenvs $project_name | grep -q $project_name); then
-        echo "pyenv activate $project_name"
-       #pyenv activate $project_name
-    else
-        echo "pyenv virtualenv $project_name"
-       #pyenv virtualenv $project_name
-    fi
+    _pyenv_virtualenv    
 fi
+
 
 eval "$install_command"
