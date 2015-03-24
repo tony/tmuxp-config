@@ -30,7 +30,7 @@ then
 fi
 
 
-if command -v virtualenv
+if command -v virtualenv > /dev/null 2>&1
 then
     has_virtualenv="has_virtualenv"
 fi
@@ -51,8 +51,6 @@ then
     has_virtualenvwrapper="has_virtualenvwrapper"
 fi
 
-if [ -n "$in_virtualenv" ]; then echo "in virtualenv"; fi
-
 # user outside of virtualenv without virtualenv installed.
 if [ ! -n "$in_virtualenv" ] && [ ! -n "$has_virtualenv" ]; then
     cat <<EOF
@@ -64,9 +62,57 @@ fi
 
 
 
-# user queried project name, but no virtualenvwrapper
+
+_detect_manager() {
+    if [ -n "$has_pyenv" ]; then # has pyenv
+        if [ -n "$has_pyenv_virtualenv" ]; then # has virtualenv extension for pyenv
+            if [ -n "$has_pyenv_virtualenvwrapper" ]; then  # confusing you? pyenv-virtualenvwrapper
+                echo "virtualenvwrapper"
+            else
+                echo "pyenv-virtualenv"
+            fi
+        else  
+            echo "virtualenv"
+        fi
+    else
+        if [ -n "$has_virtualenvwrapper" ]; then
+            echo "virtualenvwrapper"
+        else
+            echo "virtualenv"
+        fi
+    fi
+}
 
 
+_virtualenv_project() {
+    if [ -d "$HOME/.virtualenvs/$project_name" ]; then
+        echo "environment found"
+    else
+        echo "no environment"
+        virtualenv "$HOME/.virtualenvs/$project_name"
+        . "$HOME/.virtualenvs/$project_name/bin/activate"
+    fi
+}
+
+
+_virtualenvwrapper_project() {
+    if $(lsvirtualenv | grep -q "^$project_name"); then
+        workon $project_name
+    else
+        mkvirtualenv $project_name
+        workon $project_name
+    fi
+}
+
+_pyenv_virtualenv() {
+    if $(pyenv virtualenvs $project_name | grep -q "$project_name"); then
+        echo "pyenv activate $project_name"
+       #pyenv activate $project_name
+    else
+        echo "pyenv virtualenv $project_name"
+       #pyenv virtualenv $project_name
+    fi
+}
 
 _print_message() {
     cat <<EOF
@@ -122,62 +168,16 @@ if [ -z "$project_name" ]; then
     exit 1
 fi
 
-_detect_manager() {
-    if [ -n "$has_pyenv" ]; then # has pyenv
-        if [ -n "$has_pyenv_virtualenv" ]; then # has virtualenv extension for pyenv
-            if [ -n "$has_pyenv_virtualenvwrapper" ]; then  # confusing you? pyenv-virtualenvwrapper
-                echo "virtualenvwrapper"
-            else
-                echo "pyenv-virtualenv"
-            fi
-        else  
-            echo "virtualenv"
-        fi
-    else
-        if [ -n "$has_virtualenvwrapper" ]; then
-            echo "virtualenvwrapper"
-        else
-            echo "virtualenv"
-        fi
-    fi
-}
 
-
-_virtualenv_project() {
-    if [ -d "$HOME/.virtualenvs/$project_name" ]; then
-        echo "environment found"
-    else
-        "no environment"
-        virtualenv "$HOME/.virtualenvs/$project_name"
-        . "$HOME/.virtualenvs/$project_name/bin/activate"
-    fi
-}
-
-
-_virtualenvwrapper_project() {
-    if $(lsvirtualenv | grep -q "^$project_name"); then
-        workon $project_name
-    else
-        mkvirtualenv $project_name
-        workon $project_name
-    fi
-}
-
-_pyenv_virtualenv() {
-    if $(pyenv virtualenvs $project_name | grep -q "$project_name"); then
-        echo "pyenv activate $project_name"
-       #pyenv activate $project_name
-    else
-        echo "pyenv virtualenv $project_name"
-       #pyenv virtualenv $project_name
-    fi
-}
 
 if [ -z "$manager" ]; then  # no manager found, let's autodetect
     manager=$(_detect_manager)
-    echo "detetected manager $manager"
+    echo "detected manager $manager"
 fi
 
+if [ -n "$in_virtualenv" ]; then echo "in virtualenv"; fi
+
+# user queried project name, but no virtualenvwrapper
 # user queried project name, but no virtualenvwrapper, using  pyenv-virtualenv
 if [ -n "$manager" ] && [ "$manager" = "pyenv-virtualenv" ]; then
     _pyenv_virtualenv    
