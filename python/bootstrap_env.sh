@@ -9,7 +9,20 @@ set -e
 # this step is needed because only shell can source into an environment.
 #project_config_dir="$( python bootstrap_env.py $@ --get-project-config)"
 
+my_needed_commands="git python"
 
+missing_counter=0
+for needed_command in $my_needed_commands; do
+  if ! command -v "$needed_command" >/dev/null 2>&1; then
+    echo "Command not found in PATH: $needed_command\n" >&2
+    missing_counter=$(( missing_counter += 1 ))
+  fi
+done
+
+if [ $missing_counter -gt 0 ]; then
+  echo "Minimum $missing_counter commands are missing in PATH, aborting.\n" >&2
+  exit 1
+fi
 
 if env | grep -q ^VIRTUAL_ENV=
 then
