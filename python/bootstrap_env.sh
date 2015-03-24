@@ -194,11 +194,11 @@ if [ -n "$in_virtualenv" ]; then echo "in virtualenv"; fi
 
 # user queried project name, but no virtualenvwrapper
 # user queried project name, but no virtualenvwrapper, using  pyenv-virtualenv
-if [ "$manager" = "pyenv-virtualenv" ]; then
-    _pyenv_virtualenv    
-elif [ "$manager" = "virtualenvwrapper"]; then
+if "$manager" = "pyenv-virtualenv"; then
+    _pyenv_virtualenv
+elif "$manager" = "virtualenvwrapper"; then
     _virtualenvwrapper
-elif [ "$manager" = "virtualenv"]; then
+elif "$manager" = "virtualenv"; then
     _virtualenv
 fi
 
