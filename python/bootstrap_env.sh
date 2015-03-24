@@ -93,15 +93,13 @@ _detect_manager() {
 
 _virtualenv_project() {
     if [ -d "$HOME/.virtualenvs/$project_name" ]; then
-        echo "environment found"
-        . "$HOME/.virtualenvs/$project_name/bin/activate"
+        source "$HOME/.virtualenvs/$project_name/bin/activate"
     else
-        echo "no environment"
         if [ ! -d "$HOME/.virtualenvs" ]; then
             mkdir "$HOME/.virtualenvs"
         fi
         virtualenv "$HOME/.virtualenvs/$project_name"
-        . "$HOME/.virtualenvs/$project_name/bin/activate"
+        source "$HOME/.virtualenvs/$project_name/bin/activate"
     fi
 }
 
@@ -115,7 +113,7 @@ _virtualenvwrapper_project() {
     fi
 }
 
-_pyenv_virtualenv() {
+_pyenv_virtualenv_project() {
     if $(pyenv virtualenvs $project_name | grep -q "$project_name"); then
        pyenv activate "$project_name"
     else
@@ -194,12 +192,12 @@ if [ -n "$in_virtualenv" ]; then echo "in virtualenv"; fi
 
 # user queried project name, but no virtualenvwrapper
 # user queried project name, but no virtualenvwrapper, using  pyenv-virtualenv
-if "$manager" = "pyenv-virtualenv"; then
-    _pyenv_virtualenv
-elif "$manager" = "virtualenvwrapper"; then
-    _virtualenvwrapper
-elif "$manager" = "virtualenv"; then
-    _virtualenv
+if [ "$manager" = "pyenv-virtualenv" ]; then
+    _pyenv_virtualenv_project
+elif [ "$manager" = "virtualenvwrapper" ]; then
+    _virtualenvwrapper_project
+elif [ "$manager" = "virtualenv" ]; then
+    _virtualenv_project
 fi
 
 
