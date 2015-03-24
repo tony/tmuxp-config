@@ -4,6 +4,10 @@
 
 set -e
 
+if [ -n "$ZSH_VERSION" ]; then
+    setopt shwordsplit
+fi
+
 # TODO: bootstrap bootstrap, check for pip, install pystrap
 
 # this step is needed because only shell can source into an environment.
@@ -77,8 +81,11 @@ _detect_manager() {
     else
         if [ -n "$has_virtualenvwrapper" ]; then
             echo "virtualenvwrapper"
-        else
+        elif [ -n "$has_virtualenv" ]; then
             echo "virtualenv"
+        else
+            echo "No virtualenv found in paths."
+            exit 1
         fi
     fi
 }
@@ -87,8 +94,12 @@ _detect_manager() {
 _virtualenv_project() {
     if [ -d "$HOME/.virtualenvs/$project_name" ]; then
         echo "environment found"
+        . "$HOME/.virtualenvs/$project_name/bin/activate"
     else
         echo "no environment"
+        if [ ! -d "$HOME/.virtualenvs" ]; then
+            mkdir "$HOME/.virtualenvs"
+        fi
         virtualenv "$HOME/.virtualenvs/$project_name"
         . "$HOME/.virtualenvs/$project_name/bin/activate"
     fi
@@ -97,26 +108,26 @@ _virtualenv_project() {
 
 _virtualenvwrapper_project() {
     if $(lsvirtualenv | grep -q "^$project_name"); then
-        workon $project_name
+        workon "$project_name"
     else
-        mkvirtualenv $project_name
-        workon $project_name
+        mkvirtualenv "$project_name"
+        workon "$project_name"
     fi
 }
 
 _pyenv_virtualenv() {
     if $(pyenv virtualenvs $project_name | grep -q "$project_name"); then
-        echo "pyenv activate $project_name"
-       #pyenv activate $project_name
+       pyenv activate "$project_name"
     else
-        echo "pyenv virtualenv $project_name"
-       #pyenv virtualenv $project_name
+       pyenv virtualenv "$project_name"
     fi
 }
 
 _print_message() {
     cat <<EOF
 usage: $0 [-v] [-m manager] [-c install_command] [project_name]
+
+        -v  verbose / debug mode
 
         -m  (optional) virtualenv|pyenv-virtualenv|virtualenvwrapper
             will do the best to autodetect your virtual environment manager.
@@ -141,7 +152,9 @@ do
       v)  vflag=on;;
       m)  
           manager="$OPTARG"
-          if [ "$manager" != "virtualenv" ] && [ "$manager" != "virtualenv" ] && [ "$manager" != "virtualenv" ]; then
+          if  [ "$manager" != "virtualenv" ] && 
+              [ "$manager" != "virtualenvwrapper" ] && 
+              [ "$manager" != "pyenv-virtualenv" ]; then
               echo "Incorrect manager, must specify virtualenv, virtualenvwrapper or pyenv-virtualenv"
               exit 1
           fi
@@ -157,6 +170,8 @@ shift `expr $OPTIND - 1`
 project_name=$@
 
 if [ "$vflag" = "on" ]; then
+    set -x
+    set -v
     echo "project_name: $project_name"
     echo "install_command: $install_command"
     echo "manager: $manager"
@@ -179,8 +194,12 @@ if [ -n "$in_virtualenv" ]; then echo "in virtualenv"; fi
 
 # user queried project name, but no virtualenvwrapper
 # user queried project name, but no virtualenvwrapper, using  pyenv-virtualenv
-if [ -n "$manager" ] && [ "$manager" = "pyenv-virtualenv" ]; then
+if [ "$manager" = "pyenv-virtualenv" ]; then
     _pyenv_virtualenv    
+elif [ "$manager" = "virtualenvwrapper"]; then
+    _virtualenvwrapper
+elif [ "$manager" = "virtualenv"]; then
+    _virtualenv
 fi
 
 
