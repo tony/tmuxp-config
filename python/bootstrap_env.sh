@@ -1,12 +1,26 @@
 #!/bin/sh
 # ENV variables accepted:
 # PYBOOTSTRAP_DIR: directory of your configs
-
-set -e
+if ([ -n $ZSH_EVAL_CONTEXT ] && $($ZSH_EVAL_CONTEXT | grep -q ":file$")) \
+    || ([ -n $BASH_VERSION ] && [ $0 != "$BASH_SOURCE" ] ) \
+    ; then
+    sourced=1
+else
+    sourced=0
+fi
 
 if [ -n "$ZSH_VERSION" ]; then
     setopt shwordsplit
 fi
+
+# In case quitting from script while sourcing
+_quit() {
+    if [ -n "$sourced" ]; then 
+        return $0
+    else
+        exit $0;
+    fi
+}
 
 # TODO: bootstrap bootstrap, check for pip, install pystrap
 
@@ -25,7 +39,7 @@ done
 
 if [ $missing_counter -gt 0 ]; then
   echo "Minimum $missing_counter commands are missing in PATH, aborting.\n" >&2
-  exit 1
+  _quit 1
 fi
 
 if env | grep -q ^VIRTUAL_ENV=
@@ -33,7 +47,11 @@ then
     in_virtualenv="in_virtualenv"
 fi
 
-if [ -n "$in_virtualenv" ]; then echo "in virtualenv"; exit 1; fi
+echo $VIRTUAL_ENV
+if [ -n "$in_virtualenv" ]; then 
+    echo "in virtualenv";
+    _quit 1
+fi
 
 
 if command -v virtualenv > /dev/null 2>&1
@@ -63,11 +81,8 @@ if [ ! -n "$in_virtualenv" ] && [ ! -n "$has_virtualenv" ]; then
 You must install virtualenv, see:
 https://virtualenv.pypa.io/en/latest/installation.html
 EOF
-    exit 1
+    _quit 1
 fi
-
-
-
 
 _detect_manager() {
     if [ -n "$has_pyenv" ]; then # has pyenv
@@ -87,7 +102,7 @@ _detect_manager() {
             echo "virtualenv"
         else
             echo "No virtualenv found in paths."
-            exit 1
+            _quit 1
         fi
     fi
 }
@@ -120,6 +135,7 @@ _pyenv_virtualenv_project() {
        pyenv activate "$project_name"
     else
        pyenv virtualenv "$project_name"
+       pyenv activate "$project_name"
     fi
 }
 
@@ -143,30 +159,29 @@ EOF
 }
 
 vflag=off
-source=on
 OPTIND=1
 while getopts "hvtp:m:c:" opt
 do
     case "$opt" in
       h)
           _print_message
-          exit 0
+          _quit 0
           ;;
       v)  vflag=on;;
-      t)  source=off;;
+      t)  sourced=off;;
       m)  
           manager="$OPTARG"
           if  [ "$manager" != "virtualenv" ] && 
               [ "$manager" != "virtualenvwrapper" ] && 
               [ "$manager" != "pyenv-virtualenv" ]; then
               echo "Incorrect manager, must specify virtualenv, virtualenvwrapper or pyenv-virtualenv"
-              exit 1
+              _quit 1
           fi
           ;;
       c)  install_command="$OPTARG";;
       \?)		# unknown flag
          _print_message 
-          exit 1;;
+         _quit 1;;
     esac
 done
 shift `expr $OPTIND - 1`
@@ -184,7 +199,7 @@ fi
 if [ -z "$project_name" ]; then
     echo "Please enter at least a project_name."
     _print_message
-    exit 1
+    _quit 1
 fi
 
 
@@ -194,10 +209,9 @@ if [ -z "$manager" ]; then  # no manager found, let's autodetect
     echo "detected manager $manager"
 fi
 
-if [ "$source" = "off" ]; then
-    exit 0
+if [ "$sourced" = "off" ]; then
+    _quit 0
 fi
-
 
 if [ "$manager" = "pyenv-virtualenv" ]; then
     _pyenv_virtualenv_project
@@ -206,6 +220,5 @@ elif [ "$manager" = "virtualenvwrapper" ]; then
 elif [ "$manager" = "virtualenv" ]; then
     _virtualenv_project
 fi
-
 
 eval "$install_command"
