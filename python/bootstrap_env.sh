@@ -47,12 +47,10 @@ then
     in_virtualenv="in_virtualenv"
 fi
 
-echo $VIRTUAL_ENV
 if [ -n "$in_virtualenv" ]; then 
-    echo "in virtualenv";
+    echo "You are already in a virtualenv";
     _quit 1
 fi
-
 
 if command -v virtualenv > /dev/null 2>&1
 then
@@ -206,7 +204,6 @@ fi
 
 if [ -z "$manager" ]; then  # no manager found, let's autodetect
     manager=$(_detect_manager)
-    echo "detected manager $manager"
 fi
 
 if [ "$sourced" = "off" ]; then
