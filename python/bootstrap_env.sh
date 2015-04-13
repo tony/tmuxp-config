@@ -1,12 +1,12 @@
 #!/bin/sh
 # ENV variables accepted:
 # PYBOOTSTRAP_DIR: directory of your configs
-if ([ -n $ZSH_EVAL_CONTEXT ] && $($ZSH_EVAL_CONTEXT | grep -q ":file$")) \
+if [ "$ZSH_EVAL_CONTEXT" = "toplevel" ] \
     || ([ -n $BASH_VERSION ] && [ $0 != "$BASH_SOURCE" ] ) \
     ; then
-    sourced=1
+    sourced=on
 else
-    sourced=0
+    sourced=off
 fi
 
 if [ -n "$ZSH_VERSION" ]; then
@@ -15,10 +15,10 @@ fi
 
 # In case quitting from script while sourcing
 _quit() {
-    if [ -n "$sourced" ]; then 
-        return $0
+    if [ "$sourced" = "on" ]; then 
+        return $1
     else
-        exit $0;
+        exit $1
     fi
 }
 
@@ -107,33 +107,62 @@ _detect_manager() {
 
 
 _virtualenv_project() {
-    if [ -d "$HOME/.virtualenvs/$project_name" ]; then
-        source "$HOME/.virtualenvs/$project_name/bin/activate"
-    else
+    if [ ! -d "$HOME/.virtualenvs/$project_name" ]; then
         if [ ! -d "$HOME/.virtualenvs" ]; then
             mkdir "$HOME/.virtualenvs"
         fi
         virtualenv "$HOME/.virtualenvs/$project_name"
-        source "$HOME/.virtualenvs/$project_name/bin/activate"
     fi
+
+    _virtualenv_activate
 }
 
+_virtualenv_activate() {
+    if [ "$sourced" = "on" ]; then
+        if [ -d "$HOME/.virtualenvs/$project_name" ]; then
+            source "$HOME/.virtualenvs/$project_name/bin/activate"
+        else
+            echo "virtualenv $project_name does not exist"
+            _quit 1
+        fi 
+    fi
 
+}
+
+# todo, create a force command to overwrite
 _virtualenvwrapper_project() {
-    if $(lsvirtualenv | grep -q "^$project_name"); then
-        workon "$project_name"
-    else
+    if ! $(lsvirtualenv | grep -q "^$project_name"); then
         mkvirtualenv "$project_name"
-        workon "$project_name"
+    fi
+    _virtualenvwrapper_activate
+}
+
+_virtualenvwrapper_activate() {
+    if [ "$sourced" = "on" ]; then
+        if $(lsvirtualenv | grep -q "^$project_name"); then
+            workon "$project_name"
+        else
+            echo "virtualenv $project_name does not exist"
+            _quit 1
+        fi 
     fi
 }
 
 _pyenv_virtualenv_project() {
-    if $(pyenv virtualenvs $project_name | grep -q "$project_name"); then
-       pyenv activate "$project_name"
-    else
+   if ! $(pyenv virtualenvs $project_name | grep -q "$project_name"); then
        pyenv virtualenv "$project_name"
-       pyenv activate "$project_name"
+   fi
+   _pyenv_virtualenv_activate
+}
+
+_pyenv_virtualenv_activate() {
+    if [ "$sourced" = "on" ]; then
+        if $(pyenv virtualenvs $project_name | grep -q "$project_name"); then
+            pyenv activate "$project_name"
+        else
+            echo "virtualenv $project_name does not exist"
+            _quit 1
+        fi
     fi
 }
 
@@ -157,6 +186,7 @@ EOF
 }
 
 vflag=off
+install_command=off
 OPTIND=1
 while getopts "hvtp:m:c:" opt
 do
@@ -206,16 +236,21 @@ if [ -z "$manager" ]; then  # no manager found, let's autodetect
     manager=$(_detect_manager)
 fi
 
-if [ "$sourced" = "off" ]; then
-    _quit 0
-fi
 
 if [ "$manager" = "pyenv-virtualenv" ]; then
+    VIRTUALENV_PATH="$PYENV_ROOT/versions"
     _pyenv_virtualenv_project
 elif [ "$manager" = "virtualenvwrapper" ]; then
+    VIRTUALENV_PATH="$WORKON_HOME"
     _virtualenvwrapper_project
 elif [ "$manager" = "virtualenv" ]; then
+    VIRTUALENV_PATH="$HOME/.virtualenvs"
     _virtualenv_project
 fi
 
-eval "$install_command"
+VIRTUALENV_PROJECT_PATH="$VIRTUALENV_PATH/$project_name"
+VIRTUALENV_PROJECT_BIN_PATH="$VIRTUALENV_PROJECT_PATH/bin"
+
+if [ "$install_command" != "off" ]; then
+    eval "$VIRTUALENV_PROJECT_BIN_PATH/$install_command"
+fi
