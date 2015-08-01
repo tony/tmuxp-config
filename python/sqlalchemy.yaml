@@ -1,6 +1,6 @@
 session_name: sqlalchemy
 start_directory: ~/study/sqlalchemy/sqlalchemy
-before_script: ./bootstrap_env.sh -c "pip install -e ~/study/sqlalchemy/sqlalchemy" sqlalchemy
+before_script: ./bootstrap_env.sh -c "pip install -e $PWD" sqlalchemy
 shell_command_before: source ~/.tmuxp/python/bootstrap_env.sh sqlalchemy
 windows:
 - window_name: sqlalchemy
