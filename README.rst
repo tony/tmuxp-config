@@ -16,6 +16,11 @@ Instructions:
 
 4. Type ``tmuxp load ~/.tmuxp/<config>.yaml``.
 
+License
+-------
+
+MIT
+
 .. _tmux: http://tmux.sourceforge.net/
 .. _tmuxp: https://github.com/tony/tmuxp
 .. _Install tmuxp: http://tmuxp.readthedocs.org/en/latest/quickstart.html
