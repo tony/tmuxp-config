@@ -1,4 +1,4 @@
-session_name: tmuxp
+session_name: pyterm
 start_directory: ~/study/python/ # load session relative to config location (project root).
 before_script: ~/.dot-config/.tmuxp/pyterm/bootstrap_env.py # ./ to load relative to project root.
 windows:
