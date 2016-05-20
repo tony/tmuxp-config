@@ -31,6 +31,9 @@ import subprocess
 import pkgutil
 import platform
 
+class PackageInstallationException(EnvironmentError):
+    pass
+
 
 def warning(*objs):
     print("WARNING: ", *objs, file=sys.stderr)
@@ -141,7 +144,11 @@ python_bin = os.path.join(env_dir, 'bin', 'python')
 virtualenv_bin = which('virtualenv', throw=False)
 virtualenv_exists = os.path.exists(env_dir) and os.path.isfile(python_bin)
 sphinx_requirements_filepath = os.path.join(
-    project_dir, 'doc', 'requirements.pip')
+    project_dir, 'doc', 'requirements.pip'
+)
+
+def expanddir(_dir):
+	return os.path.expanduser(os.path.expandvars(_dir))
 
 
 class Project(object):
@@ -156,13 +163,13 @@ class Project(object):
             test_requirements=None
 	):
         """You can override this initializer and anything else here."""
-        self.project_dir = os.path.expanduser(project_dir)
-        self.p = PipEnv(self.pip_bin)
+        self.project_dir = expanddir(project_dir)
+        self.env = PipEnv(self.pip_bin)
 
     @property
     def virtualenv_dir(self):
         """Path to virtualenv directory."""
-        return os.path.expanduser(os.path.join(self.project_dir, '.venv'))
+        return expanddir(os.path.join(self.project_dir, '.venv'))
 
     @property
     def pip_bin(self):
@@ -242,7 +249,7 @@ class Project(object):
         self.setup_docs()
 
     def install_project(self):
-        return self.pip('install', '-e', self.project_dir)
+        return self.env.install(self.project_dir, options=['-e'])
 
     def pip(self, *args):
         return subprocess.check_call((self.pip_bin,) + args)
@@ -264,8 +271,11 @@ class PipEnv(object):
     def __init__(self, pip_bin):
         self.pip_bin = pip_bin
 
-    def pip(self, *args):
-        return subprocess.check_output((self.pip_bin,) + args)
+    def pip(self, command, *args):
+        print(command, *args)
+        print((self.pip_bin, command,) + args)
+        cmd = (self.pip_bin, command,) + args
+        return subprocess.check_output(cmd)
 
     def installed_bins(self):
         """list bins in bin/"""
@@ -308,8 +318,10 @@ class PipEnv(object):
                 options += ['--force-reinstall']
         elif force:
             options += ['--ignore-installed']
+
+        options += [package]
         try:
-            print(self.pip('install', package, *options))
+            print(self.pip('install', *options))
         except subprocess.CalledProcessError as e:
             raise PackageInstallationException(
                 (e.returncode, e.output, package))
@@ -386,6 +398,7 @@ def main():
     ), throw=True)
     pyvim = Project(
         project_dir='~/study/python/pyvim',
+        virtualenv_dir='.venv/',
     )
     pyvim.setup()
     from ptpython.repl import embed
