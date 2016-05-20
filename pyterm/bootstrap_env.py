@@ -29,7 +29,6 @@ import os
 import sys
 import subprocess
 import pkgutil
-import platform
 
 class PackageInstallationException(EnvironmentError):
     pass
@@ -44,10 +43,6 @@ def fail(message):
 
 
 PY2 = sys.version_info[0] == 2
-if PY2:
-    from urllib import urlretrieve
-else:
-    from urllib.request import urlretrieve
 
 
 def has_module(module_name):
@@ -332,9 +327,9 @@ class PipEnv(object):
         """
         packages = {}
         results = self.pip('search', term)
-        for result in results.split(linesep):
+        for result in results.split(os.linesep):
             try:
-                name, description = result.split(six.u(' - '), 1)
+                name, description = result.split(' - ', 1)
             except ValueError:
                 # '-' not in result so unable to split into tuple;
                 # this could be from a multi-line description
@@ -343,7 +338,7 @@ class PipEnv(object):
                 name = name.strip()
                 if len(name) == 0:
                     continue
-                packages[name] = description.split(six.u('<br'), 1)[0].strip()
+                packages[name] = description.split('<br', 1)[0].strip()
         return packages
 
     def search_names(self, term):
