@@ -8,8 +8,52 @@ windows:
   options:
     main-pane-height: 35
   shell_command_before:
-    - '[ -d .venv -a -f ~/.virtualenvs/pyterm/bin/activate ] && source ~/.virtualenvs/pyterm/bin/activate'
+    - '[ -d .venv -a -f .venv/bin/activate ] && source .venv/bin/activate'
   start_directory: python-prompt-toolkit/
+  panes:
+  - focus: true
+  - pane 
+  - pane 
+- window_name: pyvim
+  layout: main-horizontal
+  options:
+    main-pane-height: 35
+  shell_command_before:
+    - '[ -d .venv -a -f .venv/bin/activate ] && source .venv/bin/activate'
+  start_directory: pyvim/
+  panes:
+  - focus: true
+  - pane 
+  - pane 
+- window_name: pymux
+  layout: main-horizontal
+  options:
+    main-pane-height: 35
+  shell_command_before:
+    - '[ -d .venv -a -f .venv/bin/activate ] && source .venv/bin/activate'
+  start_directory: pymux/
+  panes:
+  - focus: true
+  - pane 
+  - pane 
+- window_name: ptpdb
+  layout: main-horizontal
+  options:
+    main-pane-height: 35
+  shell_command_before:
+    - '[ -d .venv -a -f .venv/bin/activate ] && source .venv/bin/activate'
+  start_directory: ptpdb/
+  panes:
+  - focus: true
+  - pane 
+  - pane 
+- window_name: ptpython
+  layout: main-horizontal
+  options:
+    main-pane-height: 35
+  shell_command_before:
+    - '[ -d .venv -a -f .venv/bin/activate ] && source .venv/bin/activate'
+  start_directory: ptpython/
   panes:
   - focus: true
   - pane 

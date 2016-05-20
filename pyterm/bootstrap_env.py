@@ -407,6 +407,24 @@ def main():
     )
     prompt_toolkit.setup()
 
+    ptpython = Project(
+        project_dir='~/study/python/ptpython/',
+        virtualenv_dir='.venv/'
+    )
+    ptpython.setup()
+
+    ptpdb = Project(
+        project_dir='~/study/python/ptpdb/',
+        virtualenv_dir='.venv/'
+    )
+    ptpdb.setup()
+
+    pymux = Project(
+        project_dir='~/study/python/pymux/',
+        virtualenv_dir='.venv/'
+    )
+    pymux.setup()
+
     if os.environ.get('REPL', False):
         from ptpython.repl import embed
         embed(globals(), locals())
