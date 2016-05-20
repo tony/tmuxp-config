@@ -152,24 +152,27 @@ def expanddir(_dir):
 
 
 class Project(object):
-    project_dir = None
 
     def __init__(
             self,
             project_dir=os.path.dirname(os.path.realpath(__file__)),
-            virtualenv_dir=None,
+            virtualenv_dir='.venv/',
             project_requirements=None,
             doc_requirements=None,
             test_requirements=None
 	):
-        """You can override this initializer and anything else here."""
-        self.project_dir = expanddir(project_dir)
-        self.env = PipEnv(self.pip_bin)
+        """You can override this initializer and anything else here.
 
-    @property
-    def virtualenv_dir(self):
-        """Path to virtualenv directory."""
-        return expanddir(os.path.join(self.project_dir, '.venv'))
+        :param project_dir: directory of project
+        :type project_dir: str
+        :param virtualenv_dir: can be absolute, or relative to the project_dir
+        :type virtualenv_dir: str
+        """
+        self.project_dir = expanddir(project_dir)
+        self.virtualenv_dir = expanddir(
+            os.path.normpath(os.path.join(self.project_dir, virtualenv_dir))
+        )
+        self.env = PipEnv(self.pip_bin)
 
     @property
     def pip_bin(self):
@@ -251,14 +254,11 @@ class Project(object):
     def install_project(self):
         return self.env.install(self.project_dir, options=['-e'])
 
-    def pip(self, *args):
-        return subprocess.check_call((self.pip_bin,) + args)
-
     def setup_docs(self):
         join, exists, isfile = os.path.join, os.path.exists, os.path.isfile
         if self.docs_requirements:
             if not isfile(join(env_dir, 'bin', 'sphinx-quickstart')):
-                self.pip('install', self.docs_requirements)
+                self.env.install(self.docs_requirements)
 
             # clean sphinx build dir
             if exists(join(env_dir, 'build')):
@@ -272,10 +272,8 @@ class PipEnv(object):
         self.pip_bin = pip_bin
 
     def pip(self, command, *args):
-        print(command, *args)
-        print((self.pip_bin, command,) + args)
-        cmd = (self.pip_bin, command,) + args
-        return subprocess.check_output(cmd)
+        print(self.pip_bin, command, *args)
+        return subprocess.check_output((self.pip_bin, command,) + args)
 
     def installed_bins(self):
         """list bins in bin/"""
@@ -396,11 +394,18 @@ def main():
         'Find instructions on how to install at: %s' %
         'http://pip.readthedocs.org/en/latest/installing.html'
     ), throw=True)
+
     pyvim = Project(
         project_dir='~/study/python/pyvim',
         virtualenv_dir='.venv/',
     )
     pyvim.setup()
+
+    prompt_toolkit = Project(
+        project_dir='~/study/python/python-prompt-toolkit/',
+        virtualenv_dir='.venv/'
+    )
+    prompt_toolkit.setup()
     from ptpython.repl import embed
     embed(globals(), locals())
 
