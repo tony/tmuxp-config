@@ -395,35 +395,40 @@ def main():
         'http://pip.readthedocs.org/en/latest/installing.html'
     ), throw=True)
 
-    pyvim = Project(
-        project_dir='~/study/python/pyvim',
-        virtualenv_dir='.venv/',
-    )
-    pyvim.setup()
-
     prompt_toolkit = Project(
         project_dir='~/study/python/python-prompt-toolkit/',
         virtualenv_dir='.venv/'
     )
     prompt_toolkit.setup()
 
+    pyvim = Project(
+        project_dir='~/study/python/pyvim',
+        virtualenv_dir='.venv/',
+    )
+    pyvim.setup()
+    pyvim.env.install(prompt_toolkit.project_dir, options=['-e'])
+
+
     ptpython = Project(
         project_dir='~/study/python/ptpython/',
         virtualenv_dir='.venv/'
     )
     ptpython.setup()
+    ptpython.env.install(prompt_toolkit.project_dir, options=['-e'])
 
     ptpdb = Project(
         project_dir='~/study/python/ptpdb/',
         virtualenv_dir='.venv/'
     )
     ptpdb.setup()
+    ptpdb.env.install(prompt_toolkit.project_dir, options=['-e'])
 
     pymux = Project(
         project_dir='~/study/python/pymux/',
         virtualenv_dir='.venv/'
     )
     pymux.setup()
+    pymux.env.install(prompt_toolkit.project_dir, options=['-e'])
 
     if os.environ.get('REPL', False):
         from ptpython.repl import embed
