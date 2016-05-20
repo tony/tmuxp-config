@@ -56,6 +56,7 @@ def has_module(module_name):
     except ImportError:
         return False
 
+
 def split_package_name(p):
     """Splits the given package name and returns a tuple (name, ver)."""
     s = p.split('==')
@@ -139,17 +140,21 @@ pip_bin = os.path.join(env_dir, 'bin', 'pip')
 python_bin = os.path.join(env_dir, 'bin', 'python')
 virtualenv_bin = which('virtualenv', throw=False)
 virtualenv_exists = os.path.exists(env_dir) and os.path.isfile(python_bin)
-sphinx_requirements_filepath = os.path.join(project_dir, 'doc', 'requirements.pip')
+sphinx_requirements_filepath = os.path.join(
+    project_dir, 'doc', 'requirements.pip')
 
 
 class Project(object):
     project_dir = None
 
-    def __init__(self,
-                 project_dir=os.path.dirname(os.path.realpath(__file__)),
-                 project_requirements=None,
-                 doc_requirements=None,
-                 test_requirements=None):
+    def __init__(
+            self,
+            project_dir=os.path.dirname(os.path.realpath(__file__)),
+            virtualenv_dir=None,
+            project_requirements=None,
+            doc_requirements=None,
+            test_requirements=None
+	):
         """You can override this initializer and anything else here."""
         self.project_dir = os.path.expanduser(project_dir)
         self.p = PipEnv(self.pip_bin)
@@ -271,7 +276,8 @@ class PipEnv(object):
         """Version of installed pip."""
         if not hasattr(self, '_pip_version'):
             string_version = self.pip('-V').split()[1]
-            self._pip_version = tuple([int(n) for n in string_version.split('.')])
+            self._pip_version = tuple([int(n)
+                                       for n in string_version.split('.')])
         return self._pip_version
 
     def install(self, package, force=False, upgrade=False, options=None):
@@ -291,7 +297,8 @@ class PipEnv(object):
         if isinstance(package, tuple):
             package = '=='.join(package)
         if not (force or upgrade) and self.is_installed(package):
-            print('%s is already installed, skipping (use force=True to override)' % package)
+            print(
+                '%s is already installed, skipping (use force=True to override)' % package)
             return
         if not isinstance(options, list):
             raise ValueError("Options must be a list of strings.")
@@ -304,7 +311,8 @@ class PipEnv(object):
         try:
             print(self.pip('install', package, *options))
         except subprocess.CalledProcessError as e:
-            raise PackageInstallationException((e.returncode, e.output, package))
+            raise PackageInstallationException(
+                (e.returncode, e.output, package))
 
     def search(self, term):
         """
@@ -337,7 +345,8 @@ class PipEnv(object):
         List of all packages that are installed in this environment in
         the format [(name, ver), ..].
         """
-        freeze_options = ['-l', '--all'] if self.pip_version >= (8, 1, 0) else ['-l']
+        freeze_options = [
+            '-l', '--all'] if self.pip_version >= (8, 1, 0) else ['-l']
         return list(map(split_package_name, filter(
             None, self.pip('freeze', *freeze_options).split(os.linesep)))
         )
@@ -355,25 +364,26 @@ class PipEnv(object):
         if package.endswith('.git'):
             pkg_name = os.path.split(package)[1][:-4]
             return pkg_name in self.installed_package_names or \
-                    pkg_name.replace('_', '-') in self.installed_package_names
+                pkg_name.replace('_', '-') in self.installed_package_names
         pkg_tuple = split_package_name(package)
         if pkg_tuple[1] is not None:
             return pkg_tuple in self.installed_packages
         else:
             return pkg_tuple[0] in self.installed_package_names
 
+
 def main():
     pymod_exists('virtualenv', msg=(
-            'Virtualenv is required for this bootstrap to run.\n'
-            'Install virtualenv via:\n'
-            '\t$ [sudo] pip install virtualenv'
-        ), throw=True)
+        'Virtualenv is required for this bootstrap to run.\n'
+        'Install virtualenv via:\n'
+        '\t$ [sudo] pip install virtualenv'
+    ), throw=True)
 
     pymod_exists('pip', msg=(
-            'pip is required for this bootstrap to run.\n'
-            'Find instructions on how to install at: %s' %
-            'http://pip.readthedocs.org/en/latest/installing.html'
-        ), throw=True)
+        'pip is required for this bootstrap to run.\n'
+        'Find instructions on how to install at: %s' %
+        'http://pip.readthedocs.org/en/latest/installing.html'
+    ), throw=True)
     pyvim = Project(
         project_dir='~/study/python/pyvim',
     )
