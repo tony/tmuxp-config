@@ -406,8 +406,10 @@ def main():
         virtualenv_dir='.venv/'
     )
     prompt_toolkit.setup()
-    from ptpython.repl import embed
-    embed(globals(), locals())
+
+    if os.environ.get('REPL', False):
+        from ptpython.repl import embed
+        embed(globals(), locals())
 
 if __name__ == '__main__':
     main()
