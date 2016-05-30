@@ -58,6 +58,12 @@ def main():
     pymux.setup()
     pymux.env.install(prompt_toolkit.project_dir, options=['-e'])
 
+    pymux = Project(
+        project_dir='~/work/python/profiling/',
+        virtualenv_dir='.venv/'
+    )
+    pymux.setup()
+
     if os.environ.get('REPL', False):
         from ptpython.repl import embed
         embed(globals(), locals())
