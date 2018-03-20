@@ -1,0 +1,25 @@
+session_name: peergrade
+start_directory: ~/work/peergrade/peergrade.io
+shell_command_before: 
+  - '[ -d `.venv/bin/activate` ] && source .venv/bin/activate && reset'
+windows:
+- window_name: peergrade
+  layout: main-horizontal
+  focus: true
+  panes:
+  - focus: True
+  - blank
+  - env no_proxy='*' python worker.py
+  - python run_debug.py
+  options:
+    main-pane-height: 35
+- window_name: peergrade
+  layout: main-horizontal
+  focus: true
+  panes:
+  - focus: True
+  - env WEBSOCKETS_PORT='9543' gunicorn --bind 0.0.0.0:9543 -w 1 -k geventwebsocket.gunicorn.workers.GeventWebSocketWorker run_grasp:app
+  - env WEBSOCKETS_HOST='localhost:9543' npm run webpack-dev-server
+  - brunch watch -j
+  options:
+    main-pane-height: 35
