@@ -10,6 +10,7 @@ windows:
   - focus: True
   - blank
   - env no_proxy='*' python worker.py
+  - env WEBSOCKETS_PORT='9543' python run_grasp.py
   - python run_debug.py
   options:
     main-pane-height: 35
@@ -18,7 +19,6 @@ windows:
   focus: true
   panes:
   - focus: True
-  - env WEBSOCKETS_PORT='9543' gunicorn --bind 0.0.0.0:9543 -w 1 -k geventwebsocket.gunicorn.workers.GeventWebSocketWorker run_grasp:app
   - env WEBSOCKETS_HOST='localhost:9543' npm run webpack-dev-server
   - brunch watch -j
   options:
