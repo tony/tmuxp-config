@@ -9,8 +9,8 @@ windows:
   panes:
   - focus: True
   - blank
-  - env no_proxy='*' python worker.py
-  - env WEBSOCKETS_PORT='9543' python run_grasp.py
+  - no_proxy='*' python worker.py
+  - python run_grasp.py
   - python run_debug.py
   options:
     main-pane-height: 35
@@ -19,7 +19,7 @@ windows:
   focus: true
   panes:
   - focus: True
-  - env WEBSOCKETS_HOST='localhost:9543' npm run webpack-dev-server
+  - npm run webpack-dev-server
   - brunch watch -j
   options:
     main-pane-height: 35
