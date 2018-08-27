@@ -9,9 +9,9 @@ windows:
   panes:
   - focus: True
   - blank
-  - no_proxy='*' python worker.py
-  - python run_grasp.py
-  - python run_debug.py
+  - no_proxy='*' ./worker.py
+  - ./run_grasp.py
+  - ./run_debug.py
   options:
     main-pane-height: 35
 - window_name: peergrade
