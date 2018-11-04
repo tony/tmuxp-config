@@ -1,0 +1,25 @@
+session_name: peergrade-py3
+start_directory: ~/work/peergrade/peergrade.io
+shell_command_before: 
+  - '[ -d `.venv3/bin/activate` ] && source .venv3/bin/activate && reset'
+windows:
+- window_name: peergrade-py3
+  layout: main-horizontal
+  focus: true
+  panes:
+  - focus: True
+  - blank
+  - no_proxy='*' ./worker.py
+  - ./run_grasp.py
+  - ./run_debug.py
+  options:
+    main-pane-height: 35
+- window_name: peergrade
+  layout: main-horizontal
+  focus: true
+  panes:
+  - focus: True
+  - npm run webpack-dev-server
+  - brunch watch -j
+  options:
+    main-pane-height: 35
