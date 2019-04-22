@@ -4,7 +4,7 @@ before_script: pipenv install --dev --skip-lock
 shell_command_before: 
   - '[ -d `pipenv --venv` ] && source `pipenv --venv`/bin/activate && reset'
 windows:
-- window_name: peergrade
+- window_name: eduflow
   layout: main-horizontal
   focus: true
   panes:
