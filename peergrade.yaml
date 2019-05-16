@@ -1,7 +1,7 @@
-session_name: peergrade-py3
+session_name: peergrade
 start_directory: ~/work/peergrade/peergrade.io
 shell_command_before: 
-  - '[ -d `.venv3/bin/activate` ] && source .venv3/bin/activate && reset'
+  - '[ -d `.venv/bin/activate` ] && source .venv/bin/activate && reset'
 windows:
 - window_name: peergrade-py3
   layout: main-horizontal
