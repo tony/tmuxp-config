@@ -3,7 +3,7 @@ start_directory: ~/work/peergrade/peergrade.io
 shell_command_before: 
   - '[ -d `.venv/bin/activate` ] && source .venv/bin/activate && reset'
 windows:
-- window_name: peergrade-py3
+- window_name: peergrade
   layout: main-horizontal
   focus: true
   panes:
