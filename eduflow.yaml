@@ -11,6 +11,6 @@ windows:
   - focus: True
   - blank
   - cd js && npm run start
-  - ./manage.py runserver_plus
+  - ./manage.py runserver
   options:
     main-pane-height: 35
