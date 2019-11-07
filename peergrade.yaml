@@ -14,9 +14,8 @@ windows:
   - ./run_debug.py
   options:
     main-pane-height: 35
-- window_name: peergrade
+- window_name: front-end building
   layout: main-horizontal
-  focus: true
   panes:
   - focus: True
   - npm run webpack-dev-server
