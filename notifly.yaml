@@ -1,0 +1,15 @@
+session_name: notifly
+start_directory: ~/work/peergrade/notifly
+before_script: pipenv install --dev --skip-lock
+shell_command_before: 
+  - '[ -d `pipenv --venv` ] && source `pipenv --venv`/bin/activate && reset'
+windows:
+- window_name: notifly
+  layout: main-horizontal
+  focus: true
+  panes:
+  - focus: True
+  - blank
+  - blank
+  options:
+    main-pane-height: 35
