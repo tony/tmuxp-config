@@ -12,7 +12,6 @@ windows:
     main-pane-height: 35
 - window_name: notifly-server
   layout: main-horizontal
-  focus: true
   start_directory: ./notifly-server
   shell_command_before: 
     - '[ -d `pipenv --venv` ] && source `pipenv --venv`/bin/activate && reset'
@@ -20,5 +19,14 @@ windows:
   - focus: True
   - blank
   - blank
+  options:
+    main-pane-height: 35
+- window_name: notifly-client
+  layout: main-horizontal
+  start_directory: ./notifly-client
+  panes:
+  - focus: True
+  - blank
+  - '[ ! -d node_modules ] && npm install && reset'
   options:
     main-pane-height: 35
