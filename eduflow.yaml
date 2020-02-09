@@ -10,7 +10,7 @@ windows:
   panes:
   - focus: True
   - blank
-  - cd js; ../manage.py generate_graphql_schema &&  npm run relay && npm run start
-  - ./manage.py runserver
+  - cd js; pipenv run ../manage.py generate_graphql_schema &&  npm run relay && npm run start
+  - pipenv run ./manage.py runserver
   options:
     main-pane-height: 35
