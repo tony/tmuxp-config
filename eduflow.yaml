@@ -1,8 +1,8 @@
 session_name: eduflow
 start_directory: ~/work/peergrade/eduflow
-before_script: pipenv install --dev --skip-lock
+before_script: ./scripts/poetry-before-script.sh
 shell_command_before: 
-  - '[ -d `pipenv --venv` ] && source `pipenv --venv`/bin/activate && reset'
+- '[ -f .venv/bin/activate ] && source .venv/bin/activate && reset'
 windows:
 - window_name: eduflow
   layout: main-horizontal
@@ -10,7 +10,7 @@ windows:
   panes:
   - focus: True
   - blank
-  - cd js; pipenv run ../manage.py generate_graphql_schema &&  npm run relay && npm run start
-  - pipenv run ./manage.py runserver
+  - cd js; poetry run ../manage.py generate_graphql_schema &&  npm run relay && npm run start
+  - poetry run ./manage.py runserver
   options:
     main-pane-height: 35
