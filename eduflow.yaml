@@ -10,7 +10,7 @@ windows:
   panes:
   - focus: True
   - blank
-  - cd js; poetry run ../manage.py generate_graphql_schema &&  npm run relay && npm run start
+  - poetry run ./manage.py generate_graphql_schema && npm -C js run relay && npm -C js run start
   - poetry run ./manage.py runserver
   options:
     main-pane-height: 35
