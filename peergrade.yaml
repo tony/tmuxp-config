@@ -1,5 +1,6 @@
 session_name: peergrade
 start_directory: ~/work/peergrade/peergrade.io
+before_script: ./scripts/poetry-before-script.sh
 shell_command_before: 
   - '[ -d `.venv/bin/activate` ] && source .venv/bin/activate && reset'
 windows:
@@ -9,8 +10,8 @@ windows:
   panes:
   - focus: True
   - blank
-  - no_proxy='*' ./worker.py
-  - ./run_grasp.py
+  - env no_proxy='*' poetry run ./worker.py
+  - poetry run ./run_grasp.py
   - ./run_debug.py
   options:
     main-pane-height: 35
