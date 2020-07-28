@@ -12,7 +12,7 @@ windows:
   - blank
   - env no_proxy='*' poetry run ./worker.py
   - poetry run ./run_grasp.py
-  - ./run_debug.py
+  - poetry run ./run_debug.py
   options:
     main-pane-height: 35
 - window_name: front-end building
