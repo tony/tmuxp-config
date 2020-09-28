@@ -10,8 +10,7 @@ windows:
   panes:
   - focus: True
   - blank
-  - env no_proxy='*' poetry run ./worker.py
-  - poetry run ./run_grasp.py
+  - poetry run ./manage.py generate_graphql_schema && npm run relay && npm run webpack-dev-server
   - poetry run ./run_debug.py
   options:
     main-pane-height: 35
@@ -19,7 +18,8 @@ windows:
   layout: main-horizontal
   panes:
   - focus: True
-  - npm run webpack-dev-server
+  - poetry run ./run_grasp.py
+  - env no_proxy='*' poetry run ./worker.py
   - brunch watch -j
   options:
     main-pane-height: 35
