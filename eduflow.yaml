@@ -2,9 +2,9 @@ session_name: eduflow
 start_directory: ~/work/peergrade/eduflow
 before_script: ./scripts/poetry-before-script.sh
 shell_command_before: 
-- |
-  [ -d `.venv/bin/activate` ] && \
-  source .venv/bin/activate && \
+- >
+  [ -d `.venv/bin/activate` ] &&
+  source .venv/bin/activate &&
   reset
 - sleep 1
 windows:
@@ -14,9 +14,9 @@ windows:
   panes:
   - focus: True
   - blank
-  - |
-    poetry run ./manage.py generate_graphql_schema && \
-    npm -C js run relay && \ 
+  - >
+    poetry run ./manage.py generate_graphql_schema &&
+    npm -C js run relay &&
     npm -C js run start
   - poetry run ./manage.py runserver
   options:
