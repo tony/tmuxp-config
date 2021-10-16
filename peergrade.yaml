@@ -1,4 +1,4 @@
-session_name: peergrade
+sssion_name: peergrade
 start_directory: ~/work/peergrade/peergrade.io
 before_script: ./scripts/poetry-before-script.sh
 shell_command_before: 
@@ -25,8 +25,7 @@ windows:
   panes:
   - focus: True
   - poetry run ./run_grasp.py
-  - env no_proxy='*' \
-    poetry run ./worker.py
+  - poetry run ./worker.py
   - brunch watch -j
   options:
     main-pane-height: 35
