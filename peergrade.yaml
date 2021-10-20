@@ -1,4 +1,4 @@
-sssion_name: peergrade
+session_name: peergrade
 start_directory: ~/work/peergrade/peergrade.io
 before_script: ./scripts/poetry-before-script.sh
 shell_command_before: 
