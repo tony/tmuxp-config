@@ -1,0 +1,30 @@
+session_name: poetry
+start_directory: ~/study/python/poetry
+before_script: ./scripts/poetry-before-script.sh
+shell_command_before: 
+- >
+  [ -d `.venv/bin/activate` ] &&
+  source .venv/bin/activate &&
+  reset
+- sleep 1
+windows:
+- window_name: poetry
+  layout: main-horizontal
+  focus: true
+  panes:
+  - focus: True
+  - blank
+  - blank
+  - blank
+  options:
+    main-pane-height: 35
+- window_name: poetry-core
+  start_directory: ../poetry-core
+  layout: main-horizontal
+  panes:
+  - focus: True
+  - blank
+  - blank
+  - blank
+  options:
+    main-pane-height: 35
