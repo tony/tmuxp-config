@@ -3,7 +3,7 @@ start_directory: ~/study/python/poetry
 before_script: ./scripts/poetry-before-script.sh
 shell_command_before: 
 - sleep 1
-- poetry shell -n --no-ansi
+- poetry shell --quiet --no-interaction --no-ansi
 - sleep 1
 windows:
 - window_name: poetry
@@ -27,7 +27,7 @@ windows:
   options:
     main-pane-height: 35
 - window_name: installer
-  start_directory: ../install.poetry-project.org
+  start_directory: ../install.python-poetry.org/
   layout: main-horizontal
   panes:
   - focus: True
