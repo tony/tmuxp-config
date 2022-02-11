@@ -26,6 +26,6 @@ windows:
   - focus: True
   - poetry run ./run_grasp.py
   - poetry run ./worker.py
-  - brunch watch -j
+  - npm run bower && npm run watch
   options:
     main-pane-height: 35
