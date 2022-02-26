@@ -2,9 +2,8 @@ session_name: poetry
 start_directory: ~/study/python/poetry
 before_script: ./scripts/poetry-before-script.sh
 shell_command_before: 
-- sleep 1
-- poetry shell --quiet --no-interaction --no-ansi
-- sleep 1
+- poetry install --no-interaction --no-ansi --quiet
+- source $(poetry env info -p)/bin/activate; reset
 windows:
 - window_name: poetry
   layout: main-horizontal
