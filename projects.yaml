@@ -1,6 +1,6 @@
 session_name: projects
 start_directory: ~/work
-before_script: vcspull tmuxp libtmux vcspull libvcs django_slugify_procsesor unihan unihan-etl cihai cihai-cli
+before_script: vcspull sync tmuxp libtmux vcspull libvcs django_slugify_procsesor unihan unihan-etl cihai cihai-cli
 shell_command_before: 
 - poetry install --no-interaction --no-ansi --quiet
 - source $(poetry env info -p)/bin/activate; reset
