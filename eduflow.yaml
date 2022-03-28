@@ -1,12 +1,14 @@
 session_name: eduflow
 start_directory: ~/work/peergrade/eduflow
-before_script: ./scripts/poetry-before-script.sh
 shell_command_before: 
-- >
-  [ -d `.venv/bin/activate` ] &&
-  source .venv/bin/activate &&
-  reset
-- sleep 1
+- 
+  cmd: poetry shell --quiet --no-interaction
+  sleep_before: .25
+  sleep_after: .25
+- 
+  cmd: reset
+  sleep_before: .75
+  sleep_after: .75
 windows:
 - window_name: eduflow
   layout: main-horizontal
@@ -14,10 +16,14 @@ windows:
   panes:
   - focus: True
   - blank
-  - >
-    poetry run ./manage.py generate_graphql_schema &&
-    yarn --cwd js run relay &&
-    yarn --cwd js run start
-  - poetry run ./manage.py runserver
+  - 
+    - cmd: >
+        poetry run ./manage.py generate_graphql_schema &&
+        yarn --cwd js run relay &&
+        yarn --cwd js run start
+      sleep_before: 1.5
+  - 
+    - cmd: poetry run ./manage.py runserver
+      sleep_before: 1.5
   options:
     main-pane-height: 35
