@@ -2,10 +2,14 @@ session_name: peergrade
 start_directory: ~/work/peergrade/peergrade.io
 before_script: ./scripts/poetry-before-script.sh
 shell_command_before: 
-  - |
-    [ -d `.venv/bin/activate` ] && \
-    source .venv/bin/activate && \
-    reset
+- 
+  cmd: poetry shell --quiet --no-interaction
+  sleep_before: .25
+  sleep_after: .25
+- 
+  cmd: reset
+  sleep_before: .75
+  sleep_after: .75
 windows:
 - window_name: peergrade
   layout: main-horizontal
@@ -13,19 +17,24 @@ windows:
   panes:
   - focus: True
   - blank
-  - |
-    poetry run ./manage.py generate_graphql_schema && \
-    npm run relay && \
-    npm run webpack-dev-server
-  - poetry run ./run_debug.py
+  - - cmd: |
+        poetry run ./manage.py generate_graphql_schema && \
+        npm run relay && \
+        npm run webpack-dev-server
+      sleep_before: 1.5
+  - - cmd: poetry run ./run_debug.py
+      sleep_before: 1.5
   options:
     main-pane-height: 35
 - window_name: front-end building
   layout: main-horizontal
   panes:
   - focus: True
-  - poetry run ./run_grasp.py
-  - poetry run ./worker.py
-  - npm run bower && npm run watch
+  - - cmd: poetry run ./run_grasp.py
+      sleep_before: 1.5
+  - - cmd: poetry run ./worker.py
+      sleep_before: 1.5
+  - - cmd: npm run bower && npm run watch
+      sleep_before: 1.5
   options:
     main-pane-height: 35
