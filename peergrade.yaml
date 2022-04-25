@@ -34,7 +34,7 @@ windows:
       sleep_before: 1.5
   - - cmd: poetry run ./worker.py
       sleep_before: 1.5
-  - - cmd: npm run bower && npm run watch
+  - - cmd: npm run bower -- install && npm run watch
       sleep_before: 1.5
   options:
     main-pane-height: 35
