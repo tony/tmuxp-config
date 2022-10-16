@@ -50,7 +50,6 @@ windows:
     - vim ./fnmatch.py
     focus: true
   - vim ./glob.py
-  start_directory: ~/study/c/cpython/Lib
   options:
     main-pane-height: 35
   layout: main-horizontal
