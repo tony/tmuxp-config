@@ -1,48 +1,46 @@
 session_name: notifly
 start_directory: ~/work/peergrade/notifly
-shell_command_before: 
-- 
-  cmd: poetry shell --quiet --no-interaction
-  sleep_before: .25
-  sleep_after: .25
-- 
-  cmd: reset
-  sleep_before: .75
-  sleep_after: .75
+shell_command_before:
+  - cmd: poetry shell --quiet --no-interaction
+    sleep_before: .25
+    sleep_after: .25
+  - cmd: reset
+    sleep_before: .75
+    sleep_after: .75
 windows:
-- window_name: notifly
-  layout: main-horizontal
-  focus: true
-  panes:
-  - focus: True
-  - blank
-  - blank
-  options:
-    main-pane-height: 35
-- window_name: notifly-server
-  layout: main-horizontal
-  start_directory: ./notifly-server
-  panes:
-  - focus: True
-  - blank
-  - blank
-  options:
-    main-pane-height: 35
-- window_name: notifly-python
-  layout: main-horizontal
-  start_directory: ./notifly-python
-  panes:
-  - focus: True
-  - blank
-  - blank
-  options:
-    main-pane-height: 35
-- window_name: notifly-client
-  layout: main-horizontal
-  start_directory: ./notifly-client
-  panes:
-  - focus: True
-  - blank
-  - '[ ! -d node_modules ] && npm install && reset'
-  options:
-    main-pane-height: 35
+  - window_name: notifly
+    layout: main-horizontal
+    focus: true
+    panes:
+      - focus: True
+      - blank
+      - blank
+    options:
+      main-pane-height: 35
+  - window_name: notifly-server
+    layout: main-horizontal
+    start_directory: ./notifly-server
+    panes:
+      - focus: True
+      - blank
+      - blank
+    options:
+      main-pane-height: 35
+  - window_name: notifly-python
+    layout: main-horizontal
+    start_directory: ./notifly-python
+    panes:
+      - focus: True
+      - blank
+      - blank
+    options:
+      main-pane-height: 35
+  - window_name: notifly-client
+    layout: main-horizontal
+    start_directory: ./notifly-client
+    panes:
+      - focus: True
+      - blank
+      - "[ ! -d node_modules ] && npm install && reset"
+    options:
+      main-pane-height: 35
