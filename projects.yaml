@@ -13,7 +13,7 @@ windows:
     focus: true
     panes:
       - shell_command:
-          - vim
+          - pane
         focus: True
       - pane
       - pane
@@ -26,7 +26,7 @@ windows:
     focus: true
     panes:
       - shell_command:
-          - vim
+          - pane
         focus: True
       - pane
       - pane
@@ -39,7 +39,7 @@ windows:
     focus: true
     panes:
       - shell_command:
-          - vim
+          - pane
         focus: True
       - pane
       - pane
@@ -52,7 +52,7 @@ windows:
     focus: true
     panes:
       - shell_command:
-          - vim
+          - pane
         focus: True
       - pane
       - pane
@@ -65,7 +65,7 @@ windows:
     focus: true
     panes:
       - shell_command:
-          - vim
+          - pane
         focus: True
       - pane
       - pane
@@ -78,7 +78,7 @@ windows:
     focus: true
     panes:
       - shell_command:
-          - vim
+          - pane
         focus: True
       - pane
       - pane
@@ -91,7 +91,7 @@ windows:
     focus: true
     panes:
       - shell_command:
-          - vim
+          - pane
         focus: True
       - pane
       - pane
@@ -104,7 +104,7 @@ windows:
     focus: true
     panes:
       - shell_command:
-          - vim
+          - pane
         focus: True
       - pane
       - pane
@@ -117,7 +117,7 @@ windows:
     focus: true
     panes:
       - shell_command:
-          - vim
+          - pane
         focus: True
       - pane
       - pane
