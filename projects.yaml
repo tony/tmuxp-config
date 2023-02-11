@@ -1,12 +1,25 @@
 session_name: projects
 start_directory: ~/work
 before_script:
-  vcspull sync tmuxp libtmux vcspull libvcs django_slugify_procsesor unihan unihan-etl cihai
+  vcspull sync g gp-libs tmuxp libtmux vcspull libvcs django_slugify_procsesor unihan unihan-etl cihai
   cihai-cli
 shell_command_before:
   - poetry install --no-interaction --no-ansi --quiet
   - source $(poetry env info -p)/bin/activate; reset
 windows:
+  - window_name: gp-libs
+    start_directory: ~/work/python/gp-libs
+    layout: main-horizontal
+    focus: true
+    panes:
+      - shell_command:
+          - pane
+        focus: True
+      - pane
+      - pane
+      - pane
+    options:
+      main-pane-height: 35
   - window_name: tmuxp
     start_directory: ~/work/python/tmuxp
     layout: main-horizontal
@@ -22,6 +35,19 @@ windows:
       main-pane-height: 35
   - window_name: libtmux
     start_directory: ~/work/python/libtmux
+    layout: main-horizontal
+    focus: true
+    panes:
+      - shell_command:
+          - pane
+        focus: True
+      - pane
+      - pane
+      - pane
+    options:
+      main-pane-height: 35
+  - window_name: g
+    start_directory: ~/work/python/g
     layout: main-horizontal
     focus: true
     panes:
@@ -61,6 +87,19 @@ windows:
       main-pane-height: 35
   - window_name: django-slugify-processor
     start_directory: ~/work/python/django-slugify-processor
+    layout: main-horizontal
+    focus: true
+    panes:
+      - shell_command:
+          - pane
+        focus: True
+      - pane
+      - pane
+      - pane
+    options:
+      main-pane-height: 35
+  - window_name: django-docutils
+    start_directory: ~/work/python/django-docutils
     layout: main-horizontal
     focus: true
     panes:
