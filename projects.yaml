@@ -4,7 +4,6 @@ before_script:
   vcspull sync g gp-libs tmuxp libtmux vcspull libvcs django_slugify_procsesor unihan unihan-etl cihai
   cihai-cli
 shell_command_before:
-  - poetry install --no-interaction --no-ansi --quiet
   - source $(poetry env info -p)/bin/activate; reset
 windows:
   - window_name: gp-libs
