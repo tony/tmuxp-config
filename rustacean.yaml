@@ -1,0 +1,62 @@
+session_name: rustacean
+windows:
+  - window_name: biome
+    start_directory: ~/work/rust/biome/
+    layout: main-horizontal
+    focus: true
+    panes:
+      - shell_command: pane
+        focus: true
+      - pane
+      - pane
+      - pane
+    options:
+      main-pane-height: 35
+
+  - window_name: ruff
+    start_directory: ~/study/rust/ruff/
+    layout: main-horizontal
+    panes:
+      - shell_command: pane
+        focus: true
+      - pane
+      - pane
+      - pane
+    options:
+      main-pane-height: 35
+
+  - window_name: pydantic
+    start_directory: ~/study/python/pydantic/
+    layout: main-horizontal
+    panes:
+      - shell_command: pane
+        focus: true
+      - pane
+      - pane
+      - pane
+    options:
+      main-pane-height: 35
+
+  - window_name: pydantic-core
+    start_directory: ~/study/python/pydantic-core/
+    layout: main-horizontal
+    panes:
+      - shell_command: pane
+        focus: true
+      - pane
+      - pane
+      - pane
+    options:
+      main-pane-height: 35
+
+  - window_name: pydantic-extra-types
+    start_directory: ~/study/python/pydantic-extra-types/
+    layout: main-horizontal
+    panes:
+      - shell_command: pane
+        focus: true
+      - pane
+      - pane
+      - pane
+    options:
+      main-pane-height: 35
