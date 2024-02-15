@@ -25,6 +25,18 @@ windows:
     options:
       main-pane-height: 35
 
+  - window_name: uv
+    start_directory: ~/study/rust/uv/
+    layout: main-horizontal
+    panes:
+      - shell_command: pane
+        focus: true
+      - pane
+      - pane
+      - pane
+    options:
+      main-pane-height: 35
+
   - window_name: pydantic
     start_directory: ~/study/python/pydantic/
     layout: main-horizontal
