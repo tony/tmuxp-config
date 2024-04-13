@@ -9,7 +9,7 @@ windows:
       - pane
       - pane
     options:
-      main-pane-height: 25
+      main-pane-height: 67%
   - window_name: /usr/doc
     layout: main-horizontal
     start_directory: /usr/doc
@@ -18,7 +18,7 @@ windows:
       - pane
       - pane
     options:
-      main-pane-height: 25
+      main-pane-height: 67%
   - window_name: /usr/ports
     layout: main-horizontal
     start_directory: /usr/ports
@@ -27,4 +27,4 @@ windows:
       - pane
       - pane
     options:
-      main-pane-height: 25
+      main-pane-height: 67%

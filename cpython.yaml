@@ -12,7 +12,7 @@ windows:
       - pane
       - pane
     options:
-      main-pane-height: 35
+      main-pane-height: 67%
   - window_name: csv
     layout: main-horizontal
     start_directory: Lib
@@ -23,7 +23,7 @@ windows:
       - pane
       - pane
     options:
-      main-pane-height: 35
+      main-pane-height: 67%
   - window_name: logging
     layout: main-horizontal
     start_directory: Lib/logging
@@ -33,7 +33,7 @@ windows:
           - :Ex
         focus: True
     options:
-      main-pane-height: 35
+      main-pane-height: 67%
   - window_name: re
     start_directory: Lib
     panes:
@@ -41,7 +41,7 @@ windows:
           - vim ./re.py
         focus: true
     options:
-      main-pane-height: 35
+      main-pane-height: 67%
     layout: main-horizontal
   - window_name: glob/fnmatch
     start_directory: Lib
@@ -51,7 +51,7 @@ windows:
         focus: true
       - vim ./glob.py
     options:
-      main-pane-height: 35
+      main-pane-height: 67%
     layout: main-horizontal
   - window_name: unittest
     start_directory: Lib/unittest
@@ -63,14 +63,14 @@ windows:
       - pane
       - pane
     options:
-      main-pane-height: 35
+      main-pane-height: 67%
     layout: main-horizontal
   - window_name: pdb
     panes:
       - vim ./pdb.py
     start_directory: Lib
     options:
-      main-pane-height: 35
+      main-pane-height: 67%
     layout: main-horizontal
   - window_name: multiprocessing
     panes:
@@ -79,7 +79,7 @@ windows:
           - :Ex
     start_directory: Lib/multiprocessing
     options:
-      main-pane-height: 35
+      main-pane-height: 67%
     layout: main-horizontal
   - window_name: curses
     panes:
@@ -89,5 +89,5 @@ windows:
         focus: true
     start_directory: Lib/curses
     options:
-      main-pane-height: 35
+      main-pane-height: 67%
     layout: main-horizontal

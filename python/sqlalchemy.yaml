@@ -13,7 +13,7 @@ windows:
   - pane
   start_directory: lib/sqlalchemy
   options:
-    main-pane-height: 35
+    main-pane-height: 67%
   layout: main-horizontal
 - window_name: test-utils
   panes:
@@ -24,7 +24,7 @@ windows:
   - pane
   start_directory: lib/sqlalchemy/testing
   options:
-    main-pane-height: 35
+    main-pane-height: 67%
   layout: main-horizontal
 - window_name: tests
   panes:
@@ -35,7 +35,7 @@ windows:
   - pane
   start_directory: test
   options:
-    main-pane-height: 35
+    main-pane-height: 67%
   layout: main-horizontal
 - window_name: sqlamp
   start_directory: ~/study/sqlalchemy/sqlamp
@@ -46,7 +46,7 @@ windows:
   - pane
   - pane
   options:
-    main-pane-height: 35
+    main-pane-height: 67%
   layout: main-horizontal
 - window_name: sqlalchemy_traversal
   start_directory: ~/study/sqlalchemy/sqlalchemy_traversal
@@ -57,7 +57,7 @@ windows:
   - pane
   - pane
   options:
-    main-pane-height: 35
+    main-pane-height: 67%
   layout: main-horizontal
 - window_name: sqlalchemy-orm-tree
   start_directory: ~/study/sqlalchemy/sqlalchemy-orm-tree
@@ -68,5 +68,5 @@ windows:
   - pane
   - pane
   options:
-    main-pane-height: 35
+    main-pane-height: 67%
   layout: main-horizontal

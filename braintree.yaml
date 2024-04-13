@@ -4,7 +4,7 @@ windows:
   - window_name: braintree.js
     start_directory: braintree.js
     options:
-      main-pane-height: 35
+      main-pane-height: 67%
     layout: main-horizontal
     focus: true
     panes:
@@ -23,7 +23,7 @@ windows:
       - pane
     layout: main-horizontal
     options:
-      main-pane-height: 35
+      main-pane-height: 67%
   - window_name: braintree_python
     start_directory: braintree_python
     panes:
@@ -34,7 +34,7 @@ windows:
       - pane
     layout: main-horizontal
     options:
-      main-pane-height: 35
+      main-pane-height: 67%
   - window_name: braintree_node_guide
     start_directory: braintree_node_guide
     panes:
@@ -45,7 +45,7 @@ windows:
       - pane
     layout: main-horizontal
     options:
-      main-pane-height: 35
+      main-pane-height: 67%
   - window_name: braintree_python_guide
     start_directory: braintree_python_guide
     panes:
@@ -56,7 +56,7 @@ windows:
       - pane
     layout: main-horizontal
     options:
-      main-pane-height: 35
+      main-pane-height: 67%
   - window_name: skeuocard
     start_directory: ../javascript/skeuocard
     panes:
@@ -67,4 +67,4 @@ windows:
       - pane
     layout: main-horizontal
     options:
-      main-pane-height: 35
+      main-pane-height: 67%

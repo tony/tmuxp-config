@@ -22,7 +22,7 @@ windows:
       - - cmd: poetry run ./run_debug.py
           sleep_before: 1.5
     options:
-      main-pane-height: 35
+      main-pane-height: 67%
   - window_name: front-end building
     layout: main-horizontal
     panes:
@@ -34,4 +34,4 @@ windows:
       - - cmd: npm run bower -- install && npm run watch
           sleep_before: 1.5
     options:
-      main-pane-height: 35
+      main-pane-height: 67%

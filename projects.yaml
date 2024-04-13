@@ -18,7 +18,7 @@ windows:
       - pane
       - pane
     options:
-      main-pane-height: 35
+      main-pane-height: 67%
   - window_name: tmuxp
     start_directory: ~/work/python/tmuxp
     layout: main-horizontal
@@ -31,7 +31,7 @@ windows:
       - pane
       - pane
     options:
-      main-pane-height: 35
+      main-pane-height: 67%
   - window_name: libtmux
     start_directory: ~/work/python/libtmux
     layout: main-horizontal
@@ -44,7 +44,7 @@ windows:
       - pane
       - pane
     options:
-      main-pane-height: 35
+      main-pane-height: 67%
   - window_name: g
     start_directory: ~/work/python/g
     layout: main-horizontal
@@ -57,7 +57,7 @@ windows:
       - pane
       - pane
     options:
-      main-pane-height: 35
+      main-pane-height: 67%
   - window_name: vcspull
     start_directory: ~/work/python/vcspull
     layout: main-horizontal
@@ -70,7 +70,7 @@ windows:
       - pane
       - pane
     options:
-      main-pane-height: 35
+      main-pane-height: 67%
   - window_name: libvcs
     start_directory: ~/work/python/libvcs
     layout: main-horizontal
@@ -83,7 +83,7 @@ windows:
       - pane
       - pane
     options:
-      main-pane-height: 35
+      main-pane-height: 67%
   - window_name: django-slugify-processor
     start_directory: ~/work/python/django-slugify-processor
     layout: main-horizontal
@@ -96,7 +96,7 @@ windows:
       - pane
       - pane
     options:
-      main-pane-height: 35
+      main-pane-height: 67%
   - window_name: django-docutils
     start_directory: ~/work/python/django-docutils
     layout: main-horizontal
@@ -109,7 +109,7 @@ windows:
       - pane
       - pane
     options:
-      main-pane-height: 35
+      main-pane-height: 67%
   - window_name: unihan-etl
     start_directory: ~/work/cihai/unihan-etl
     layout: main-horizontal
@@ -122,7 +122,7 @@ windows:
       - pane
       - pane
     options:
-      main-pane-height: 35
+      main-pane-height: 67%
   - window_name: unihan-db
     start_directory: ~/work/cihai/unihan-db
     layout: main-horizontal
@@ -135,7 +135,7 @@ windows:
       - pane
       - pane
     options:
-      main-pane-height: 35
+      main-pane-height: 67%
   - window_name: cihai
     start_directory: ~/work/cihai/cihai
     layout: main-horizontal
@@ -148,7 +148,7 @@ windows:
       - pane
       - pane
     options:
-      main-pane-height: 35
+      main-pane-height: 67%
   - window_name: cihai-cli
     start_directory: ~/work/cihai/cihai-cli
     layout: main-horizontal
@@ -161,4 +161,4 @@ windows:
       - pane
       - pane
     options:
-      main-pane-height: 35
+      main-pane-height: 67%

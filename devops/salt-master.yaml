@@ -9,7 +9,7 @@ windows:
   - pane
   - pane
   options:
-    main-pane-height: 35
+    main-pane-height: 67%
   start_directory: /etc/salt
 - window_name: salt-state-configs
   layout: main-horizontal
@@ -18,7 +18,7 @@ windows:
   - pane
   - pane
   options:
-    main-pane-height: 35
+    main-pane-height: 67%
   start_directory: ~/workspace/salt-states-configs
 - window_name: private
   layout: main-horizontal
@@ -27,5 +27,5 @@ windows:
   - pane
   - pane
   options:
-    main-pane-height: 35
+    main-pane-height: 67%
   start_directory: ~/workspace/salt-states-private

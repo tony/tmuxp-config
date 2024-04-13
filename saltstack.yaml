@@ -9,4 +9,4 @@ windows:
       - pane
       - pane
     options:
-      main-pane-height: 35
+      main-pane-height: 67%

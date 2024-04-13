@@ -14,7 +14,7 @@ windows:
       - blank
       - blank
     options:
-      main-pane-height: 35
+      main-pane-height: 67%
   - window_name: poetry-core
     start_directory: ../poetry-core
     layout: main-horizontal
@@ -24,7 +24,7 @@ windows:
       - blank
       - blank
     options:
-      main-pane-height: 35
+      main-pane-height: 67%
   - window_name: installer
     start_directory: ../install.python-poetry.org/
     layout: main-horizontal
@@ -34,4 +34,4 @@ windows:
       - blank
       - blank
     options:
-      main-pane-height: 35
+      main-pane-height: 67%

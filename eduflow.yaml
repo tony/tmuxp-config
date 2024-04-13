@@ -21,4 +21,4 @@ windows:
       - - cmd: poetry run ./manage.py runserver
           sleep_before: 1.5
     options:
-      main-pane-height: 35
+      main-pane-height: 67%
