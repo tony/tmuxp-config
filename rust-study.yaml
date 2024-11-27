@@ -15,7 +15,6 @@ windows:
   - window_name: learning-rust-python
     start_directory: ~/study/rust/learning-rust-python/
     layout: main-horizontal
-    focus: true
     panes:
       - shell_command: pane
         focus: true
@@ -27,7 +26,6 @@ windows:
   - window_name: learning-rust-nodejs
     start_directory: ~/study/rust/learning-rust-nodejs/
     layout: main-horizontal
-    focus: true
     panes:
       - shell_command: pane
         focus: true
@@ -39,7 +37,6 @@ windows:
   - window_name: rustlings
     start_directory: ~/study/rust/rustlings
     layout: main-horizontal
-    focus: true
     panes:
       - shell_command: pane
         focus: true
