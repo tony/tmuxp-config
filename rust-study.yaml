@@ -1,7 +1,7 @@
 session_name: rust-study
 windows:
   - window_name: learning-rust
-    start_directory: ~/study/learning-rust/
+    start_directory: ~/study/rust/learning-rust/
     layout: main-horizontal
     focus: true
     panes:
@@ -13,7 +13,7 @@ windows:
     options:
       main-pane-height: 67%
   - window_name: learning-rust-python
-    start_directory: ~/study/learning-rust-python/
+    start_directory: ~/study/rust/learning-rust-python/
     layout: main-horizontal
     focus: true
     panes:
@@ -25,7 +25,19 @@ windows:
     options:
       main-pane-height: 67%
   - window_name: learning-rust-nodejs
-    start_directory: ~/study/learning-rust-nodejs/
+    start_directory: ~/study/rust/learning-rust-nodejs/
+    layout: main-horizontal
+    focus: true
+    panes:
+      - shell_command: pane
+        focus: true
+      - pane
+      - pane
+      - pane
+    options:
+      main-pane-height: 67%
+  - window_name: rustlings
+    start_directory: ~/study/rust/rustlings
     layout: main-horizontal
     focus: true
     panes:
