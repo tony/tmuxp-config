@@ -8,5 +8,5 @@ windows:
   - pane
   - grunt
   options:
-    main-pane-height: 35
+    main-pane-height: 67%
   layout: main-horizontal

@@ -11,7 +11,7 @@ windows:
   - pane
   - pane
   options:
-    main-pane-height: 35
+    main-pane-height: 67%
   layout: main-horizontal
 - window_name: demos
   panes:
@@ -23,7 +23,7 @@ windows:
   - pane
   start_directory: demos
   options:
-    main-pane-height: 35
+    main-pane-height: 67%
   layout: main-horizontal
 - window_name: tests
   panes:
@@ -35,5 +35,5 @@ windows:
   - pane
   start_directory: tornado/test
   options:
-    main-pane-height: 35
+    main-pane-height: 67%
   layout: main-horizontal

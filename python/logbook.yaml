@@ -3,7 +3,7 @@ start_directory: ~/study/python/logbook
 windows:
 - window_name: logbook
   options:
-    main-pane-height: 35
+    main-pane-height: 67%
   layout: main-horizontal
   focus: true
   panes:
@@ -14,7 +14,7 @@ windows:
   - pane
 - window_name: docs
   options:
-    main-pane-height: 35
+    main-pane-height: 67%
   layout: main-horizontal
   panes:
   - shell_command: vim

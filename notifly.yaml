@@ -16,7 +16,7 @@ windows:
       - blank
       - blank
     options:
-      main-pane-height: 35
+      main-pane-height: 67%
   - window_name: notifly-server
     layout: main-horizontal
     start_directory: ./notifly-server
@@ -25,7 +25,7 @@ windows:
       - blank
       - blank
     options:
-      main-pane-height: 35
+      main-pane-height: 67%
   - window_name: notifly-python
     layout: main-horizontal
     start_directory: ./notifly-python
@@ -34,7 +34,7 @@ windows:
       - blank
       - blank
     options:
-      main-pane-height: 35
+      main-pane-height: 67%
   - window_name: notifly-client
     layout: main-horizontal
     start_directory: ./notifly-client
@@ -43,4 +43,4 @@ windows:
       - blank
       - "[ ! -d node_modules ] && npm install && reset"
     options:
-      main-pane-height: 35
+      main-pane-height: 67%

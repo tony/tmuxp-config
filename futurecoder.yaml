@@ -14,7 +14,7 @@ windows:
       - blank
       - poetry run ./manage.py runserver
     options:
-      main-pane-height: 35
+      main-pane-height: 67%
   - window_name: frontend
     start_directory: ./frontend
     layout: main-horizontal
@@ -24,7 +24,7 @@ windows:
       - blank
       - blank
     options:
-      main-pane-height: 35
+      main-pane-height: 67%
   - window_name: root
     layout: main-horizontal
     panes:
@@ -33,4 +33,4 @@ windows:
       - blank
       - blank
     options:
-      main-pane-height: 35
+      main-pane-height: 67%

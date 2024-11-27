@@ -20,7 +20,7 @@ windows:
             make start
           sleep_before: .5
     options:
-      main-pane-height: 35
+      main-pane-height: 67%
   - window_name: cihai-cli
     start_directory: ./cihai-cli
     layout: main-horizontal
@@ -32,7 +32,7 @@ windows:
             make start
           sleep_before: .5
     options:
-      main-pane-height: 35
+      main-pane-height: 67%
   - window_name: unihan-etl
     start_directory: ./unihan-etl
     layout: main-horizontal
@@ -44,7 +44,7 @@ windows:
             make start
           sleep_before: .5
     options:
-      main-pane-height: 35
+      main-pane-height: 67%
   - window_name: unihan-db
     start_directory: ./unihan-db
     layout: main-horizontal
@@ -56,4 +56,4 @@ windows:
             make start
           sleep_before: .5
     options:
-      main-pane-height: 35
+      main-pane-height: 67%

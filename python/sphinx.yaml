@@ -12,7 +12,7 @@ windows:
   - pane
   - pane
   options:
-    main-pane-height: 35
+    main-pane-height: 67%
   layout: main-horizontal
 - window_name: sphinx-tests
   shell_command_before: source ../.env/bin/activate
@@ -25,7 +25,7 @@ windows:
   - pane
   start_directory: tests
   options:
-    main-pane-height: 35
+    main-pane-height: 67%
   layout: main-horizontal
 - window_name: sphinx-docs
   shell_command_before: source ../.env/bin/activate
@@ -38,7 +38,7 @@ windows:
   - pane
   start_directory: doc
   options:
-    main-pane-height: 35
+    main-pane-height: 67%
   layout: main-horizontal
 - window_name: docutils
   panes:
@@ -50,5 +50,5 @@ windows:
   - pane
   start_directory: ~/study/python/docutils
   options:
-    main-pane-height: 35
+    main-pane-height: 67%
   layout: main-horizontal

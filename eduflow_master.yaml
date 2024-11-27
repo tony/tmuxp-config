@@ -20,4 +20,4 @@ windows:
       - poetry run ./manage.py sites add_site "localhost:${SERVER_PORT}"
         "eduflow-port-${SERVER_PORT}" && poetry run ./manage.py runserver 0.0.0.0:${SERVER_PORT}
     options:
-      main-pane-height: 35
+      main-pane-height: 67%

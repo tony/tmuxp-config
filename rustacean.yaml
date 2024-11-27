@@ -11,7 +11,7 @@ windows:
       - pane
       - pane
     options:
-      main-pane-height: 35
+      main-pane-height: 67%
 
   - window_name: ruff
     start_directory: ~/study/rust/ruff/
@@ -23,7 +23,7 @@ windows:
       - pane
       - pane
     options:
-      main-pane-height: 35
+      main-pane-height: 67%
 
   - window_name: uv
     start_directory: ~/study/rust/uv/
@@ -35,7 +35,7 @@ windows:
       - pane
       - pane
     options:
-      main-pane-height: 35
+      main-pane-height: 67%
 
   - window_name: pydantic
     start_directory: ~/study/python/pydantic/
@@ -47,7 +47,7 @@ windows:
       - pane
       - pane
     options:
-      main-pane-height: 35
+      main-pane-height: 67%
 
   - window_name: pydantic-core
     start_directory: ~/study/python/pydantic-core/
@@ -59,7 +59,7 @@ windows:
       - pane
       - pane
     options:
-      main-pane-height: 35
+      main-pane-height: 67%
 
   - window_name: pydantic-extra-types
     start_directory: ~/study/python/pydantic-extra-types/
@@ -71,4 +71,4 @@ windows:
       - pane
       - pane
     options:
-      main-pane-height: 35
+      main-pane-height: 67%
