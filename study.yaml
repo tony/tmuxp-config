@@ -1,0 +1,36 @@
+session_name: study
+windows:
+  - window_name: learning-dsa
+    start_directory: ~/study/python/learning-dsa/
+    layout: main-horizontal
+    focus: true
+    panes:
+      - shell_command: pane
+        focus: true
+      - pane
+      - pane
+      - pane
+    options:
+      main-pane-height: 67%
+  - window_name: learning-asyncio
+    start_directory: ~/study/python/learning-asyncio/
+    layout: main-horizontal
+    panes:
+      - shell_command: pane
+        focus: true
+      - pane
+      - pane
+      - pane
+    options:
+      main-pane-height: 67%
+  - window_name: learning-pytest-internals
+    start_directory: ~/study/python/learning-pytest-internals/
+    layout: main-horizontal
+    panes:
+      - shell_command: pane
+        focus: true
+      - pane
+      - pane
+      - pane
+    options:
+      main-pane-height: 67%
