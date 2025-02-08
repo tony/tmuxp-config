@@ -45,3 +45,14 @@ windows:
       - pane
     options:
       main-pane-height: 67%
+  - window_name: learning-pytest-internals
+    start_directory: ~/study/python/learning-pytest-internals/
+    layout: main-horizontal
+    panes:
+      - shell_command: pane
+        focus: true
+      - pane
+      - pane
+      - pane
+    options:
+      main-pane-height: 67%
