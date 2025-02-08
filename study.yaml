@@ -23,8 +23,19 @@ windows:
       - pane
     options:
       main-pane-height: 67%
-  - window_name: learning-pytest-internals
-    start_directory: ~/study/python/learning-pytest-internals/
+  - window_name: learning-litestar
+    start_directory: ~/study/python/learning-litestar/
+    layout: main-horizontal
+    panes:
+      - shell_command: pane
+        focus: true
+      - pane
+      - pane
+      - pane
+    options:
+      main-pane-height: 67%
+  - window_name: reenvisioning-django
+    start_directory: ~/study/python/reenvisioning-django/
     layout: main-horizontal
     panes:
       - shell_command: pane
