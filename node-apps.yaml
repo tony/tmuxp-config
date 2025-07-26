@@ -1,0 +1,129 @@
+session_name: '0'
+windows:
+- focus: 'true'
+  layout: main-horizontal
+  options:
+    main-pane-height: 67%
+  panes:
+  - focus: true
+  - blank
+  - blank
+  start_directory: ~/study/typescript/astro
+  window_name: astro
+- layout: main-horizontal
+  options:
+    main-pane-height: 67%
+  panes:
+  - focus: true
+  - blank
+  - blank
+  start_directory: ~/study/typescript/Babylon.js
+  window_name: Babylon.js
+- layout: main-horizontal
+  options:
+    main-pane-height: 67%
+  panes:
+  - blank
+  - blank
+  - focus: true
+  start_directory: ~/study/typescript/vitest
+  window_name: vitest
+- layout: main-horizontal
+  options:
+    main-pane-height: 67%
+  panes:
+  - focus: true
+  - blank
+  - blank
+  start_directory: ~/study/typescript/vite
+  window_name: vite
+- layout: main-horizontal
+  options:
+    main-pane-height: 67%
+  panes:
+  - blank
+  - blank
+  - focus: true
+  start_directory: ~/study/typescript/tailwindcss
+  window_name: tailwindcss
+- layout: main-horizontal
+  options:
+    main-pane-height: 67%
+  panes:
+  - focus: true
+  - blank
+  - blank
+  start_directory: ~/study/typescript/plotly.js
+  window_name: plotly.js
+- layout: main-horizontal
+  options:
+    main-pane-height: 67%
+  panes:
+  - focus: true
+  - blank
+  - blank
+  start_directory: ~/study/typescript/billboard.js
+  window_name: billboard.js
+- layout: main-horizontal
+  options:
+    main-pane-height: 67%
+  panes:
+  - focus: true
+  - blank
+  - blank
+  start_directory: ~/study/typescript/victory
+  window_name: victory
+- layout: main-horizontal
+  options:
+    main-pane-height: 67%
+  panes:
+  - focus: true
+  - blank
+  - blank
+  start_directory: ~/study/typescript/nivo
+  window_name: nivo
+- layout: main-horizontal
+  options:
+    main-pane-height: 67%
+  panes:
+  - focus: true
+  - blank
+  - blank
+  start_directory: ~/study/typescript/carbon-charts
+  window_name: carbon-charts
+- layout: main-horizontal
+  options:
+    main-pane-height: 67%
+  panes:
+  - focus: true
+  - blank
+  - blank
+  start_directory: ~/study/typescript/mobx
+  window_name: mobx
+- layout: main-horizontal
+  options:
+    main-pane-height: 67%
+  panes:
+  - blank
+  - focus: true
+  - blank
+  start_directory: ~/study/typescript/mobx-state-tree
+  window_name: mobx-state-tree
+- layout: main-horizontal
+  options:
+    main-pane-height: 67%
+  panes:
+  - blank
+  - blank
+  - focus: true
+  start_directory: ~/study/typescript/typescript
+  window_name: typescript
+- layout: main-horizontal
+  options:
+    main-pane-height: 67%
+  panes:
+  - blank
+  - blank
+  - focus: true
+  start_directory: ~/study/typescript/radix-primitives
+  window_name: radix-primitives
