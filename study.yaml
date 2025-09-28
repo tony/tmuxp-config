@@ -34,6 +34,17 @@ windows:
       - pane
     options:
       main-pane-height: 67%
+  - window_name: learning-fastapi
+    start_directory: ~/study/python/learning-fastapi/
+    layout: main-horizontal
+    panes:
+      - shell_command: pane
+        focus: true
+      - pane
+      - pane
+      - pane
+    options:
+      main-pane-height: 67%
   - window_name: reenvisioning-django
     start_directory: ~/study/python/reenvisioning-django/
     layout: main-horizontal
