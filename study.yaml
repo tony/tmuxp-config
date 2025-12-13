@@ -23,6 +23,18 @@ windows:
       - pane
     options:
       main-pane-height: 67%
+  - window_name: learning-ai
+    start_directory: ~/study/python/learning-ai/
+    layout: main-horizontal
+    focus: true
+    panes:
+      - shell_command: pane
+        focus: true
+      - pane
+      - pane
+      - pane
+    options:
+      main-pane-height: 67%
   - window_name: learning-litestar
     start_directory: ~/study/python/learning-litestar/
     layout: main-horizontal
