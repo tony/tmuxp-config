@@ -26,7 +26,6 @@ windows:
   - window_name: learning-ai
     start_directory: ~/study/python/learning-ai/
     layout: main-horizontal
-    focus: true
     panes:
       - shell_command: pane
         focus: true
