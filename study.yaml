@@ -34,6 +34,28 @@ windows:
       - pane
     options:
       main-pane-height: 67%
+  - window_name: learning-ai-google-adk
+    start_directory: ~/work/ai/learning-ai-google-adk/
+    layout: main-horizontal
+    panes:
+      - shell_command: pane
+        focus: true
+      - pane
+      - pane
+      - pane
+    options:
+      main-pane-height: 67%
+  - window_name: learning-ai-langchain
+    start_directory: ~/work/ai/learning-ai-langchain/
+    layout: main-horizontal
+    panes:
+      - shell_command: pane
+        focus: true
+      - pane
+      - pane
+      - pane
+    options:
+      main-pane-height: 67%
   - window_name: learning-litestar
     start_directory: ~/study/python/learning-litestar/
     layout: main-horizontal
