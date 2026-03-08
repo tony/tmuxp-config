@@ -20,7 +20,6 @@ windows:
   - window_name: tmuxp
     start_directory: ~/work/python/tmuxp
     layout: main-horizontal
-    focus: true
     panes:
       - shell_command:
           - pane
@@ -33,7 +32,6 @@ windows:
   - window_name: libtmux
     start_directory: ~/work/python/libtmux
     layout: main-horizontal
-    focus: true
     panes:
       - shell_command:
           - pane
@@ -46,7 +44,6 @@ windows:
   - window_name: g
     start_directory: ~/work/python/g
     layout: main-horizontal
-    focus: true
     panes:
       - shell_command:
           - pane
@@ -59,7 +56,6 @@ windows:
   - window_name: vcspull
     start_directory: ~/work/python/vcspull
     layout: main-horizontal
-    focus: true
     panes:
       - shell_command:
           - pane
@@ -72,7 +68,6 @@ windows:
   - window_name: libvcs
     start_directory: ~/work/python/libvcs
     layout: main-horizontal
-    focus: true
     panes:
       - shell_command:
           - pane
@@ -85,7 +80,6 @@ windows:
   - window_name: django-slugify-processor
     start_directory: ~/work/python/django-slugify-processor
     layout: main-horizontal
-    focus: true
     panes:
       - shell_command:
           - pane
@@ -98,7 +92,6 @@ windows:
   - window_name: django-docutils
     start_directory: ~/work/python/django-docutils
     layout: main-horizontal
-    focus: true
     panes:
       - shell_command:
           - pane
@@ -111,7 +104,6 @@ windows:
   - window_name: unihan-etl
     start_directory: ~/work/cihai/unihan-etl
     layout: main-horizontal
-    focus: true
     panes:
       - shell_command:
           - pane
@@ -124,7 +116,6 @@ windows:
   - window_name: unihan-db
     start_directory: ~/work/cihai/unihan-db
     layout: main-horizontal
-    focus: true
     panes:
       - shell_command:
           - pane
@@ -137,7 +128,6 @@ windows:
   - window_name: cihai
     start_directory: ~/work/cihai/cihai
     layout: main-horizontal
-    focus: true
     panes:
       - shell_command:
           - pane
@@ -150,7 +140,6 @@ windows:
   - window_name: cihai-cli
     start_directory: ~/work/cihai/cihai-cli
     layout: main-horizontal
-    focus: true
     panes:
       - shell_command:
           - pane
