@@ -4,7 +4,7 @@ shell_command_before:
   - cmd: poetry shell --quiet --no-interaction
     sleep_before: .25
     sleep_after: .25
-  - cmd: reset
+  - cmd: clear
     sleep_before: .75
     sleep_after: .75
 windows:
@@ -41,6 +41,6 @@ windows:
     panes:
       - focus: True
       - blank
-      - "[ ! -d node_modules ] && npm install && reset"
+      - "[ ! -d node_modules ] && npm install && clear"
     options:
       main-pane-height: 67%

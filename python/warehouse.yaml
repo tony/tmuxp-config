@@ -12,7 +12,7 @@ windows:
     - '[ ! -d .env/build ] || rm -rf .env/build'
   panes:
   - shell_command: 
-    - reset
+    - clear
     - vim
     - :Ex
     focus: true
@@ -34,7 +34,7 @@ windows:
     - cd ./doc
   panes:
   - shell_command:
-    - reset
+    - clear
     - vim
     - :Ex
     focus: true

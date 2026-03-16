@@ -6,7 +6,7 @@ environment:
 start_directory: ~/work/peergrade/eduflow-master
 before_script: ./scripts/poetry-before-script.sh
 shell_command_before:
-  - "[ -f .venv/bin/activate ] && source .venv/bin/activate && reset"
+  - "[ -f .venv/bin/activate ] && source .venv/bin/activate && clear"
   - sleep 1
 windows:
   - window_name: eduflow-master

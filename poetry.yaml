@@ -3,7 +3,7 @@ start_directory: ~/study/python/poetry
 before_script: ./scripts/poetry-before-script.sh
 shell_command_before:
   - poetry install --no-interaction --no-ansi --quiet
-  - source $(poetry env info -p)/bin/activate; reset
+  - source $(poetry env info -p)/bin/activate; clear
 windows:
   - window_name: poetry
     layout: main-horizontal

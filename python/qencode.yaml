@@ -2,7 +2,7 @@ session_name: qencode
 start_directory: ~/work/python/qencode-api-python-client
 before_script: ../scripts/poetry-before-script.sh
 shell_command_before: 
-- '[ -f .venv/bin/activate ] && source .venv/bin/activate && reset'
+- '[ -f .venv/bin/activate ] && source .venv/bin/activate && clear'
 windows:
 - window_name: qencode
   layout: main-horizontal
