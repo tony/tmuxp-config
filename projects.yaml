@@ -41,6 +41,18 @@ windows:
       - pane
     options:
       main-pane-height: 67%
+  - window_name: libtmux-mcp
+    start_directory: ~/work/python/libtmux-mcp
+    layout: main-horizontal
+    panes:
+      - shell_command:
+          - pane
+        focus: True
+      - pane
+      - pane
+      - pane
+    options:
+      main-pane-height: 67%
   - window_name: g
     start_directory: ~/work/python/g
     layout: main-horizontal
