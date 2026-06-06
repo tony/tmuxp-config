@@ -100,3 +100,14 @@ windows:
       - pane
     options:
       main-pane-height: 67%
+  - window_name: learning-notebooks
+    start_directory: ~/study/python/learning-notebooks/
+    layout: main-horizontal
+    panes:
+      - shell_command: pane
+        focus: true
+      - pane
+      - pane
+      - pane
+    options:
+      main-pane-height: 67%
